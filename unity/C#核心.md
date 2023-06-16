@@ -762,4 +762,4 @@ class Player : IAtk, ISuperAtk
 用密封关键字sealed修饰的重写函数
 作用：让虚方法或者抽象方法之后不能再被重写
 特点：和override一起出现
-```
+``` 
