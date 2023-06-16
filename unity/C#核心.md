@@ -699,7 +699,7 @@ interface IFly
 2.继承了接口后，必须实现其中内容，必须是public
 3.实现的接口函数可以加virtual变成虚函数再在子类中重写
 4.接口也遵循里氏替换原则
-
+5.接口可以继承接口，相当于行为合并
 class Animal
 {
 
@@ -726,3 +726,40 @@ class Person : Animal, IFly
 
 ```
 
+### 显式实现接口
+```c#
+当一个类继承2个接口，但接口中存在同名方法时使用
+tips：显式实现时不能写访问修饰符
+
+interface IAtk
+{
+    void Atk();
+}
+interface ISuperAtk
+{
+    void Atk();
+}
+
+class Player : IAtk, ISuperAtk
+{
+    //接口名.方法名
+    void IAtk.Atk()
+    {
+
+    }
+    void ISuperAtk.Atk()
+    {
+
+    }
+}
+
+这样实现的接口方法只能用as转为父类再使用
+
+可以用接口装载无关系但有相同行为的对象
+```
+## 密封方法
+```c#
+用密封关键字sealed修饰的重写函数
+作用：让虚方法或者抽象方法之后不能再被重写
+特点：和override一起出现
+```
