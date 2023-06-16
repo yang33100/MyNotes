@@ -1,0 +1,263 @@
+# c#基础
+
+## 枚举
+```c#
+定义：整形常量集合，一般用来表示状态、类型
+
+申明枚举：创建自定义枚举类型，一般申明在namespace内，也可在class和struct中申明，不能再函数中申明
+
+申明枚举变量：创建自己定义的枚举类型的变量
+
+申明枚举语法：
+    enum E_枚举类型名
+    {
+        枚举项名0，//默认值=0
+        枚举项名1，//默认值=1
+        枚举项名2，//默认值=2
+        ...
+        枚举项名n  //默认值=n
+    }
+
+    enum E_枚举类型名
+    {
+        枚举项名0 = 5， //值=5
+        枚举项名1，     //值=6
+        枚举项名2，     //值=7
+        枚举项名3 = 100，//值=100
+        枚举项名4，     //值=101
+    }
+
+样例：
+    namespace MySpace
+    {
+        enum E_PlayerType
+        {
+            Main,//0
+
+            Other,//1
+        }
+        class MyClass
+        {
+            static void Main(string[] args)
+            {
+                E_PlayerType playerType = E_PlayerType.Main;
+
+                switch (playerType)
+                {
+                    case E_PlayerType.Main:
+                        //主玩家逻辑
+                        break;
+                    case E_PlayerType.Other:
+                        //其他玩家逻辑
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+枚举转换：
+--> int //强制转换
+int ans = (int)playerType;
+
+<-- int
+playerType = 0;
+
+--> string //转换常量名
+string ans = playerType.ToString(); // ans = "Main"
+
+<-- string
+playerType = (E_PlayerType)Enum.Parse(typeof(E_PlayerType), "Main");
+
+作用：使用枚举表示对象的状态（1 站立 2 行走 3 攻击...）
+```
+
+## 一维数组
+```c#
+申明：
+int[] arr1;
+
+int[] arr2 = new int[10]; //默认值=0
+
+int[] arr3 = new int[5] = {1, 2, 3, 4, 5};
+
+int[] arr4 = new int[] = {1, 2, 3, 4};
+
+double[] arr5 = {1.5, 3.0, 5.5, 7.0, 9.0}; 
+
+方法：
+array.Length //长度
+
+
+使用：
+const int N = (int)1e5 + 10;
+
+int[] a = new int[N];
+for (int i = 0; i < N; i++)
+    Console.WriteLine(a[i]);
+
+```
+## 二维数组
+```c#
+int[,] arr1;
+
+int[,] arr2 = new int[10,10];
+
+int[,] arr3 = new int[2,2] {{1, 2}, {3, 4}};
+
+int[,] arr4 = new int[,] {{1, 2, 3},{4, 5, 6}};
+
+int[,] arr5 = {{1, 2, 3},{4, 5, 6}};
+
+方法：
+array.GetLength(0) //行数
+array.GetLength(1) //列数
+
+使用：
+array[0,1] //第0行第1列的值
+```
+## 交错数组(不常用)
+```c#
+概念：数组的数组，每个维度长度可不同
+
+int[][] arr1;
+
+int[][] arr2 = new int[3][];
+
+int[][] arr3 = new int[3][] {new int[]{1,2,3},
+                             new int[]{1,2},
+                             new int[]{1}};
+
+int[][] arr4 = new int[][] {new int[]{1,2,3},
+                             new int[]{1,2}};
+
+int[][] arr5 = {new int[]{1,2,3},
+                new int[]{1,2}};
+
+方法：
+array.GetLength(0) //行数
+array[0].Length //列数
+```
+## 值类型和引用类型
+```c#
+值类型：结构体、其他 //存储在栈空间（系统分配，自动回收小而快）拷贝值
+引用类型：string、数组、类 //存储在堆空间（手动申请、释放，大而慢）拷贝地址
+
+特例：string赋值时会重新开内存空间
+//频繁赋值会造成大量内存垃圾
+```
+
+## 函数
+```c#
+写在class和struct中
+static 返回类型 函数名(参数类型 参数名1, 参数类型 参数名2, ...)
+{
+
+    return 返回值;
+}
+```
+
+## ref out
+```c#
+作用：
+函数参数的修饰符
+当传入值类型参数在内部修改 或 引用类型参数内部重新声明时使外部的值也同步变化
+static void ChangeValueRef(ref int val)
+{
+    val = 3;
+}
+
+static void Main(string[] args)
+{
+    int a = 2;
+    ChangeValueRef(ref a);
+}
+-----------------------------------------------
+static void ChangeValueOut(out int val)
+{
+    val = 3;
+}
+
+static void Main(string[] args)
+{
+    int a = 2;
+    ChangeValueOut(out a);
+}
+
+//ref和out区别
+1. ref传入的变量必须初始化 out不用
+2. out传入的变量必须在内部赋值 ref不用
+```
+
+## 变长参数
+```c#
+1. 可以传入任意个参数
+2. params必须是数组类型
+3. 一个函数最多只能出现一个params，且只能在最后出现，再之前可以有普通参数
+关键字 params
+static int Sum(params int[] arr)
+{
+    int ans = 0；
+    for(int i = 0; i < arr.Length; i++ )
+        ans += arr[i];
+    return ans;
+}
+```
+
+## 参数默认值
+```c#
+1. 一个函数支持多参数默认值
+2. 使用之后，后面不能有普通参数
+static void Show(string s = "123")
+{
+    Console.WriteLine(s);
+}
+```
+
+## 函数重载
+```c#
+在同一class或struct中
+函数名相同，参数不同（顺序不同、ref out、params也算，但只修改ref成out不能重载）可重载，与返回值类型无关（直接报错）
+
+作用：
+1. 减少相似功能函数名数量，减少命名空间污染
+2. 提升可读性
+```
+
+## 递归
+```
+同c语言
+```
+
+## 结构体
+```c#
+写在namespace中
+struct 结构体名
+{
+    //1.变量
+    //2.构造函数（可选）
+    //3.函数
+}
+
+例：
+struct Student
+{
+    //默认private，外部使用要加public
+    int age;
+    bool sex;
+    string number,name;
+    
+    public Student(int age, bool sex, string number, string name)
+    {
+        this.age = age;
+        this.sex = sex;
+        this.number = number;
+        this.name = name;
+    }
+
+    public void say(string s) {Console.WriteLine(s);}
+}
+
+Student stu = new Student(18, true, "12312331", "小明");
+```
