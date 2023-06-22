@@ -488,7 +488,7 @@ float f1 = (float)o1;
 
 //转引用类型用as
 object str = "12";
-strubf str1 = str as string;
+string str1 = str as string;
 
 object arr = new int[10];
 int[] ar = arr as int[];
@@ -763,3 +763,213 @@ class Player : IAtk, ISuperAtk
 作用：让虚方法或者抽象方法之后不能再被重写
 特点：和override一起出现
 ``` 
+
+# 额外知识点
+
+## 命名空间
+```c#
+概念：用来组织和重用代码
+作用：像工具包，类就是工具
+
+语法:
+namespace 命名空间名
+{
+    class xx1{}
+    class xx2{}
+    ...
+}
+
+//在不同命名空间中使用别的命名空间
+using 命名空间名; //在本文件中可随意使用
+命名空间名.类名 
+
+tips:
+1.命名空间可以分开写
+2.不同命名空间可以有同名类，但要注意用 . 区分
+3.命名空间内可以包裹命名空间
+    namespace MyGame
+    {
+        namespace UI
+        {
+
+        }
+    }
+    //想要在其他文件使用ui的类
+    using MyGame.UI
+4.类前的修饰关键字
+public  都能用
+internal 只能在该程序集中使用，默认
+abstract 抽象类
+sealed 密封类
+partial 分部类
+```
+
+## object方法
+![Alt text](image-4.png)
+```c#
+静态方法:
+Equals(Object A,Object B) //值类型判断值，引用类型判断地址，按左侧对象Equals方法规则
+ReferenceEquals(Object A,Object B) //值类型比较全返回false，用来比较引用类型
+
+成员方法：
+GetType() //获取对象运行时的Type
+MemberwiseClone() //获取对象的一个新浅拷贝对象，即引用成员变量与原对象一致
+
+虚方法：
+Equals:
+//默认实现相当于ReferenceEquals，所有值类型的基类System.ValueType中被重写用于比较值相等，可重写
+GetHashCode
+//获取对象的哈希码，可重写
+ToString
+//返回字符串，可重写
+```
+
+## String重要方法
+```c#
+String s="ABC";
+
+s[0] //获取指定位置字符
+
+s.ToCharArray() //返回char数组
+
+s = string.Format("{0} 12 {1}",A,D); //字符串拼接
+
+s.IndexOf("xxx") //正向查找字符(串)位置,未找到返回-1
+
+s.LastIndexOf("xxx") //反向查找字符(串)位置,未找到返回-1
+
+s.Remove( 指定位置(,长度) ) //移除指定位置开始的几个字符，返回字符串,越界会报错
+
+s.Replace("old chars","new chars") //替换后返回字符串
+
+s.ToUpper() //返回大写字母的字符串
+s.ToLower() //返回小写字母的字符串
+
+s.substring( 指定位置(,长度) )  //字符串截取，返回字符串，越界会报错
+
+//字符串切割
+s = "1,2,3,4,5";
+string[] strs = str.Split(','); //{"1","2","3","4","5"} 
+```
+
+## StringBuilder
+```c#
+用于处理字符串的公共类，优化内存
+需要引用命名空间System.Text
+
+StringBuilder str = new StringBuilder("123213");
+Console.Write(str);
+
+//容量
+每次往里面增加会自动扩容，类vector实现原理
+
+str.Capacity //容量大小
+
+str.Length //长度
+
+str.Append("A"); //123213A
+
+str.AppendFormat("{0}","V"); //123213AV
+
+str.Insert(下标,"xxx"); //xxx123213AV
+
+str.Remove(下标，长度)
+
+str.clear()
+
+str[0] // x
+
+str[0] = 'a' //axx123213AV
+
+str.Replace("oldchars","newchars");
+
+str.Equals("xxx")
+
+```
+
+## 结构体和类的区别
+```
+1.结构体是值类型，类是引用类型
+2.结构体存储在栈上，类存储在堆上
+3.结构体具有封装特性，但没有继承和多态特性，所以不能用protected修饰
+4.结构体成员变量不能赋初始值
+5.结构体不能声明无参构造
+6.结构体申明有参构造不会顶掉无参构造
+7.结构体不能声明析构函数
+8.结构体在构造函数必须初始化所有成员变量
+9.结构体不能被static修饰
+10.结构体不能在自己内部申明和自己一样的结构体变量
+
+特殊：结构体可以继承 接口
+
+选择问题：
+1.想用继承和多态使用类
+2.对象数据集合优先用结构体
+3.从值类型和引用类型考虑，经常传值进函数，但不想改变原对象则用结构体
+
+```
+
+## 抽象类和接口的区别
+```
+相同
+1.都可以被继承
+2.都不能被实例化
+3.都包含方法申明
+4.子类必须实现未实现的方法
+5.都遵循里氏替换原则
+不同
+1.抽象类可以有构造函数
+2.抽象类只能单一继承，接口可以被继承多个
+3.抽象类可以有成员变量
+4.抽象类可以申明成员方法，虚方法，抽象方法，静态方法，接口只能申明没有实现的方法
+5.抽象类方法可以使用访问修饰符，接口不建议写，默认public
+
+```
+
+## 多脚本文件
+```c#
+解决方案名.sln //解决方案主入口
+工程名1 （文件夹）
+工程名2 （文件夹）
+
+
+//工程文件夹中
+bin 文件夹 //bin中debug内的文件夹可以直接执行
+obj 文件夹
+脚本名.cs //脚本文件
+
+
+接口 类 结构体 一个申明 对应一个脚本
+
+```
+
+## UML类图
+![Alt text](image-5.png)
+
+## 面向对象七大原则
+```c#
+目标：高内聚，低耦合
+//从类的角度看：减少对其他类的调用
+//从功能块来看：减少模块之间的交互复杂度
+```
+![Alt text](image-13.png)
+### 1.单一职责原则
+![Alt text](image-6.png)
+### 2.开闭原则
+![Alt text](image-7.png)
+### 3.里氏替换原则
+![Alt text](image-8.png)
+### 4.依赖倒转原则
+![Alt text](image-9.png)
+### 5.接口隔离原则
+![Alt text](image-11.png)
+### 6.合成复用原则
+![Alt text](image-12.png)
+### 7.迪米特原则
+![Alt text](image-10.png)
+
+## 实践
+```
+Console.KeyAvailable
+检测输入
+```

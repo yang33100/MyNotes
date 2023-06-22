@@ -153,12 +153,12 @@ DEFAULT 默认值：写在类型后 用于设置默认值
 
 修改表：
 ALTER TABLE 表名
-ADD column 属性名 属性类型 AFTER 原有属性名  --添加新列 在 原有属性名 之后
+ADD column 列名 类型 AFTER 某一属性名  --添加新列 在 原有属性名 之后
 ADD FOREIGN KEY(collnum) REFERENCES coll(collnum) -- 添加外键
-DROP column 属性名; -- 删除列
-CHANGE 属性名 新名 新类型 constraint 约束名 check(新名 = "男" or 新名 = "女")
+DROP column 列名; -- 删除列
+change 旧列名 新列名 类型 constraint 约束名 check(新名 = "男" or 新名 = "女")
 DROP constraint 约束名 --删除约束
-MODIFY 属性名 新类型 AFTER 原有属性名 -- 修改属性类型放在 原有属性名 之后
+MODIFY 旧列名 新类型 AFTER 某一属性名 -- 修改属性类型放在 原有属性名 之后
 
 展示表的结构：DESC 表名;
 
