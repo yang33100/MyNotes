@@ -241,6 +241,8 @@ list.Contains(元素)
 list.IndexOf(index)
 list.LastIndexOf(index)
 
+list.Reverse()
+
 list.Count
 list.Capacity
 
@@ -440,3 +442,612 @@ class Test
 3.事件相当于对委托进行了一次封装让其更加安全
 ```
 
+## 匿名函数
+```c#
+顾名思义，就是没有名字的函数
+匿名函数的使用主要是配合委托和事件进行使用
+脱离委托和事件是不会使用匿名函数的
+
+delegate (参数列表)
+{
+    //函数逻辑
+};
+
+//何时使用?
+1.函数中传递委托参数时
+2.委托或事件赋值时
+
+例:
+//无参无返回
+Action act = delegate ()
+{
+    Console.Write("Hello");
+};
+
+act();
+
+//有参
+Action<int,string> act = delegate (int x,string s)
+{
+    console.WriteLine(x,s);
+};
+act(100,"123");
+
+//有返回值
+Func<int> fc = delegate ()
+{
+    return 100;
+}
+fc();
+
+//一般情况会作为函数参数传递 或者 作为函数返回值
+class Test
+{
+    public Action action;
+    public void DoSomething(int a, Action fun)
+    {
+        Console.WriteLine(a);
+        fun();
+    }
+
+    public Action GetFun()
+    {
+        return delegate (){Console.Write("Hello");};
+    }
+}
+
+Test t = new Test();
+//作为参数
+t.DoSomething(100, delegate (){Console.Write("hello");} );
+//作为返回值
+Action ac = t.GetFun();
+
+//缺陷
+添加到委托或事件容器中 不记录，因为没有名字无法单独移除，只能clear
+```
+
+
+## lambda表达式
+```c#
+可以将lambad表达式理解为匿名函数的简写
+它除了写法不同外
+使用上和匿名函数一模一样
+都是和委托或者事件配合使用的
+
+语法：
+(参数列表) => {函数体};
+
+//无参无返回
+Action act = () =>
+{
+    Console.Write("无参无返回值逻辑");
+};
+
+//有参
+Action<int> act = (int val) =>
+{
+    Console.Write("无返回值逻辑" + val);
+};
+
+//甚至参数类型都可以省略参数类型和委托或事件容器一致
+Action<int> act = (val) =>
+{
+    Console.Write("无返回值逻辑" + val);
+};
+
+//有返回值
+Func<string,int> fc = (val) =>
+{
+    console.Write("val");
+    return "12";
+}
+
+缺点同匿名函数
+```
+## 闭包
+```c#
+内层的函数可以引用包含在它外层的函数的变量即使外层函数的执行已经终止
+注意:
+该变量提供的值并非变量创建时的值，而是在父函数范围内的最终值。
+```
+![Alt text](image-20.png)
+
+![Alt text](image-21.png)
+
+## 补充知识
+```
+当用有返回值的委托容器存储多个函数时,调用时调用只会给最后执行的返回值
+委托容器中存在方法GetInvocationList()可以返回一个委托数组
+```
+![Alt text](image-22.png)
+
+# List排序
+```c#
+List<int> list = new List<int>();
+list.Add(3);
+list.Add(2);
+list.Add(1);
+
+//List自带排序
+list.Sort(); //ArryList也有
+
+//通过重写接口方法自定义排序
+class Item : IComparable<Item>
+{
+    public int money;
+    public Item(int money)
+    {
+        this.money = money;
+    }
+
+    public int CompareTo(Item other)
+    {
+        // <0 放在传入对象的前面
+        // =0 不变
+        // >0 放在传入对象的后面
+        return this.money - other.money;//升序
+        return -this.money + other.money;//降序
+    }
+}
+List<Item> items = new List<Item>();
+list.Add(new Item(45));
+list.Add(new Item(12));
+list.Add(new Item(23));
+
+//通过自定义函数排序
+static int Cmp(Item x, Item y)
+{
+    // <0 放在传入对象的前面
+    // =0 不变
+    // >0 放在传入对象的后面
+    return x.money - y.money;//升序
+    return -x.money + y.money;//降序
+}
+
+List<Item> items = new List<Item>();
+list.Add(new Item(45));
+list.Add(new Item(12));
+list.Add(new Item(23));
+list.Sort(Cmp);
+
+//通过委托/lambda函数排序
+list.Sort((Item x, Item y)=>
+{
+    // <0 放在传入对象的前面
+    // =0 不变
+    // >0 放在传入对象的后面
+    return x.money - y.money;//升序
+    return -x.money + y.money;//降序
+});
+```
+# 协变逆变
+```c#
+协变和逆变是用来修饰泛型的，只有泛型接口和泛型委托能使用
+//协变:父类泛型委托装子类泛型委托
+out T，限制接口、委托泛型只能作返回值
+//逆变:子类泛型委托装父类泛型委托
+in T，限制接口、委托泛型只能作参数
+
+使用：
+//用out修饰的泛型只能作返回值，in修饰的只能作参数
+delegate T Test<out T, in P> (P val);
+interface ITest<out T, in P>
+{
+    T show(P x)
+    {
+        return T类型;
+    }
+}
+```
+![Alt text](image-23.png)
+![Alt text](image-24.png)
+
+# 多线程
+```c#
+//进程(Process)
+是计算机中的程序关于某数据集合上的一次运行活动
+是系统进行资源分配和调度的基本单位，是操作系统结构的基础
+说人话:打开应用程序就是在操作系统上开启了一个进程
+进程之间可以相互独立运行，互不干扰
+进程之间也可以相互访问、操作
+
+//线程
+操作系统能够进行运算调度的最小单位。
+被包含在进程之中，是进程中的实际运作单位
+一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程
+我们目前写的程序都在主线程中
+简单理解线程:
+就是代码从上到下运行的一条“管道”
+
+//线程类 Thread
+需要引用命名空间using System.Threading;
+
+// 声明一个新的线程
+注意线程执行的代码需要封装到一个函数中
+Thread t = new Thread(函数);
+
+// 启动线程
+t.Start();
+
+// 设置为后台线程
+当前台线程都结束了的时候,整个程序也就结束了,即使还有后台线程正在运行
+后台线程不会防止应用程序的进程被终止掉
+如果不设置为后台线程可能导致进程无法正常关闭
+t.IsBackgroud = true;
+
+// 关闭释放一个线程
+如果开启的线程中不是死循环是能够结束的逻辑那么不用刻意的去关闭它
+如果是死循环想要中止这个线程有两种方式
+//1-死循环中bool标识为全局静态变量，可以控制循环
+
+//2-通过线程提供的方法(注意在.Net core版本中无法中止会报错)
+t.Abort();
+t = null;
+
+// 线程休眠xx毫秒
+Thread.Sleep(1000);
+
+// 共享问题
+多个线程使用的内存是共享的，都属于该应用程序(进程)
+所以要注意当多线程同时操作同一片内存区域时可能会出问题
+可以通过加锁的形式避免问题
+
+// 锁
+lock(引用类型对象)
+{
+    //逻辑
+}
+
+//处理一些复杂耗时的逻辑：寻路、网络通信等
+```
+
+# 预处理器指令
+**编译器**
+
+是一种翻译程序
+
+它用于将源语呈序翻译为目标语言程序
+
+源语言程序:某种程序设计语言写成的,比如C#、C、C++、Java等语言写的程序
+
+目标语言程序:二进制数表示的伪机器代码写的程序
+
+___
+
+**预处理器指令**
+
+指导编译器在实际编译开始之前对信息进行预处理
+
+预处理器指令都是以#开始
+
+预处理器指令不是语句，所以它们不以分号;结束
+
+```c#
+#region 
+#endregion
+//就是预处理器指令 
+```
+
+___
+
+```c#
+#define 
+//定义一个符号，类似一个没有值的变量
+#undef
+/*取消define定义的符号，让其失效
+两者都是写在脚本文件最前面
+一般配合if指令 或 配合特性 使用*/
+```
+
+___
+
+```c#
+//和if语句规则一样，一般配合#define定义的符号使用
+
+//用于告诉编译器进行编译代码的流程控制
+#if
+#elif
+#else
+#endif
+```
+___
+
+
+```c#
+//告诉编译器是报警告还是报错误,一般还是配合if使用
+#warning
+#error
+```
+
+
+*例:*
+```c#
+#define IOS
+#define Andriod
+#define PS5
+#define PC
+
+#if IOS
+//逻辑
+#warning 有些代码可能有问题
+
+#elif Andriod || PS5
+//逻辑
+#error 这个版本不准执行
+
+#else
+//逻辑
+
+#endif
+```
+
+# 反射和特性
+
+## 反射
+**程序集**
+```
+程序集是经由编译器编译得到的，供进一步编译执行的那个中间产物
+在windows系统中它一般表现为后缀为.dll(库文件)或者是.exe(可执行文件)的格式
+说人话:
+程序集就是我们写的一个代码集合,我们现在写的所有代码
+最终都会被编译器翻译为一个程序集供别人使用
+比如一个代码库文件(dll)或者一个可执行文件(exe)
+```
+
+___
+
+**元数据**
+```
+元数据就是用来描述数据的数据
+这个概念不仅仅用于程序上，在别的领域也有元数据
+说人话:
+程序中的类，类中的函数、变量等等信息就是程序的元数据
+有关程序以及类型的数据被称为元数据，它们保存在程序集中
+```
+
+___
+
+**反射的概念**
+```
+程序正在运行时，可以查看其它程序集或者自身的元数据。
+一个运行的程序查看本身或者其它程序的元数据的行为就叫做反射
+说人话:
+在程序运行时，通过反射可以得到其它程序集或者自己程序集代码的各种信息
+类，函数，变量，对象等等，实例化它们，执行它们，操作它们
+```
+
+___
+
+**反射的作用**
+```
+因为反射可以在程序编译后获得信息，所以它提高了程序的拓展性和灵活性
+1.程序运行时得到所有元数据，包括元数据的特性
+2.程序运行时，实例化对象，操作对象
+3.程序运行时创建新对象，用这些对象执行任务
+```
+
+___
+
+**Type**
+```c#
+Type(类的信息类)
+它是反射功能的基础!
+它是访问元数据的主要方式。
+使用 Type的成员获取有关类型声明的信息
+有关类型的成员(如构造函数、方法、字段、属性和类的事件)
+
+每一个Type类型有唯一的地址
+
+//获取Type
+1. object中的GetType()获取对象的Type
+int a = 4;
+Type type1 = a.GetType();
+
+2. 通过typeof(类名) 获得
+Type type2 = typeof(int);
+
+3. 通过类名获取类型 类名必须包含命名空间
+Type type3 = Type.GetType("System.Int32");
+
+//得到类的程序集信息
+type.Assembly
+
+//获取类中的所有公共成员
+using System.Reflection
+MemberInfo[] infos = type.GetMembers();
+
+//获取类的公共构造函数并调用
+1.获取所有构造函数
+ConstructorInfo[] ctors = type.GetConstuctors();
+
+2.获取其中一个构造函数 并执行
+//得构造函数 传入Type数组    数组中内容按顺序是参数类型
+//执行构造函数 传入object数组 表示按顺序传入的参数
+
+    无参构造
+ConstructorInfo info1 = type.GetConstuctor(new Type[0]);
+info1.Invoke(null); //相当于创建了一个类的实例
+
+    有参构造
+ConstructorInfo info2 = type.GetConstuctor(new Type[]{typeof(int),typeof(string)});
+info1.Invoke(new object[]{2,"123"}); //相当于创建了一个类的实例
+
+
+//获取类的公共成员变量
+1.得到所有成员变量
+FieldInfo[] fieldInfos = type.GetFields();
+
+2.得到指定名称的公共成员变量
+FieldInfo info = type.GetField("变量名");
+
+3.通过反射获取和设置对象的值
+    获取值
+info.Getvalue(类名);
+
+    设置值
+info.SetValue(类名，新值);
+
+//获取类的公共成员方法
+通过Type类中的GetMethod方法得到类中的方法
+MethodInfo是 方法的反射信息
+Type strType = typeof(string);
+1.如果存在方法重载用Type数组表示参数类型
+MethodInfo[] methods = strType.GetMethods();
+MethosInfo subStr = strType.GetMethod("Substring",new Type[]{typeof(int), typeof(int)});
+2.调用该方法
+注意:如果是静态方法Invoke中的第一个参数传null即可
+string str = "Hello world";
+subStr.Invoke(str, new object[]{6, 5});//world
+```
+![Alt text](image-25.png)
+
+___
+
+**Activator**
+```c#
+用于快速实例化对象的类
+用于将Type对象快捷实例化为对象
+先得到Type
+然后快速实例化一个对象
+
+Type t = typeof(类名);
+
+//无参构造创建实例
+Activator.CreateInstance(t);
+
+//有参构造
+Activator.CreateInstance(t, 参数列表);
+```
+
+___
+
+**Assembly**
+```c#
+//程序集类
+主要用来加载其它程序集，加载后才能用Type来使用其它程序集中的信息
+如果想要使用不是自己程序集中的内容 需要先加载程序集 比如dll文件(库文件)
+简单的把库文件看成一种代码仓库，它提供给使用者一些可以直接拿来用的变量、函数或类
+
+//三种加载程序集的函数
+
+一般用来加载在同一文件下的其它程序集
+Assembly asembly2 = Assembly.Load("程序集名称");
+
+一般用来加载不在同一文件下的其它程序集
+Assembly asembly = Assembly.LoadFrom("包含程序集清单的文件的名称或路径");
+Assembly asembly3 = Assembly.LoadFile("要加载的文件的完全限定路径");
+```
+```c#
+//1.先加载一个指定程序集
+Assembly asembly = Assembly.LoadFrom(@"C:\Users\MECHREVO\Desktop\CSharp进阶教学\Lesson18_练习题\bin\Debug\netcoreapp3.1\Lesson18_练习题");
+Type[] types = asembly.GetTypes();
+for (int i = 0; i < types.Length; i++)
+{
+    Console.WriteLine(types[i]);
+}
+//2.再加载程序集中的一个类对象 之后才能使用反射
+Type icon = asembly.GetType("Lesson18_练习题.Icon");
+MemberInfo[] members = icon.GetMembers();
+for (int i = 0; i < members.Length; i++)
+{
+    Console.WriteLine(members[i]);
+}
+//通过反射 实例化一个 icon对象
+//首先得到枚举Type 来得到可以传入的参数
+Type moveDir = asembly.GetType("Lesson18_练习题.E_MoveDir");
+FieldInfo right = moveDir.GetField("Right");
+//直接实例化对象
+object iconObj = Activator.CreateInstance(icon, 10, 5, right.GetValue(null));
+//得到对象中的方法 通过反射
+MethodInfo move = icon.GetMethod("Move");
+MethodInfo draw = icon.GetMethod("Draw");
+MethodInfo clear = icon.GetMethod("Clear");
+
+Console.Clear();
+while(true)
+{
+    Thread.Sleep(1000);
+    clear.Invoke(iconObj, null);
+    move.Invoke(iconObj, null);
+    draw.Invoke(iconObj, null);
+}
+```
+
+**类库**
+```
+只能写代码，生成后有dll文件，可以利用反射执行
+```
+## 实践
+![Alt text](image-26.png)
+**Player类库**
+```c#
+namespace Player
+{
+    public struct Position
+    {
+        public int x;
+        public int y;
+        public Position(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    public class Player
+    {
+        public string name;
+        public int hp, atk, def;
+        public Position pos;
+
+        public Player()
+        {
+            name = "无名氏";
+            hp = 100;
+            atk = 20;
+            def = 20;
+            pos = new Position(20,15);
+        }
+    }
+}
+```
+**实现对Player类库的反射**
+```c#
+public static void Main(string[] args)
+{
+    Assembly assembly = Assembly.LoadFrom("E:\\Visual Studio Projects\\C#GrammarTest\\Player\\bin\\Debug\\net6.0\\Player");
+
+    /*
+    Type[] types = assembly.GetTypes();
+    foreach (var item in types)
+    {
+        Console.WriteLine(item);
+    }
+    */
+    Type player = assembly.GetType("Player.Player"); //得到Player类的类型
+    /*
+    
+    MemberInfo[] memberInfos = player.GetMembers();
+    foreach (MemberInfo memberInfo in memberInfos)
+    {
+        Console.WriteLine(memberInfo);
+    }
+    */
+
+    Type position = assembly.GetType("Player.Position"); //得到position结构体类型
+
+    object playerObj = Activator.CreateInstance(player); //创建Player类实例
+
+    FieldInfo[] fieldInfos = player.GetFields(); //得到Player类的变量
+    FieldInfo fieldInfo = player.GetField("pos"); //得到得到Player类的pos变量
+
+    foreach (FieldInfo fields in fieldInfos)
+    {
+        Console.WriteLine(fields.GetValue(playerObj)); //输出实例playerObj的各变量值
+    }
+                
+    FieldInfo x = position.GetField("x"); //得到pos结构体中x的变量
+    FieldInfo y = position.GetField("y"); //得到pos结构体中y的变量
+    Console.WriteLine(x.GetValue(fieldInfo.GetValue(playerObj))); //输出实例playerObj的变量pos的x
+    Console.WriteLine(y.GetValue(fieldInfo.GetValue(playerObj))); //输出实例playerObj的变量pos的y
+}
+```
