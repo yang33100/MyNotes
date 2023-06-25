@@ -1239,3 +1239,222 @@ tc.Speak();
 
 tc.SpeakCaller("123123123123123");
 ```
+
+# 迭代器
+```c#
+//概念
+迭代器(iterator)有时又称光标(cursor)
+是程序设计的软件设计模式
+迭代器模式提供一个方法顺序访问一个聚合对象中的各个元素
+而又不暴露其内部的标识
+
+在表现效果上看
+是可以在容器对象（例如链表或数组)上遍历访问的接口
+设计人员无需关心容器对象的内存分配的实现细节
+可以用foreach遍历的类，都是实现了迭代器的
+
+接口 Ienumerator,IEnumerable
+命名空间 System.Collections
+可以通过同时继承两接口实现其中方法
+```
+![Alt text](image-28.png)
+
+
+___
+
+**用yield return 语法糖**
+```c#
+yield return是c#提供给我们的语法糖
+所谓语法糖，也称糖衣语法
+主要作用就是将复杂逻辑简单化，可以增加程序的可读性
+从而减少程序代码出错的机会
+
+关键接口:IEnumerable
+命名空间:using system.collections;
+让想要通过foreach遍历的自定义类实现接口中的方法GetEnumerator即可
+```
+ ![Alt text](image-29.png)
+
+# 特殊语法
+```c#
+//var 隐式类型
+var是一种特殊的变量类型
+它可以用来表示任意类型的变量
+注意:
+1.var不能作为类的成员只能用于临时变量申明时
+也就是一般写在函数语句块中
+2.var必须初始化
+
+//设置对象初始值
+申明对象时
+可以通过直接写大括号的形式初始化公共成员变量和属性
+Position pos = new Position() {x = 0,y = 0};
+
+//设置集合初始值
+申明对象时
+可以通过直接写大括号的形式初始化属性
+List<Position> pos = new List<Position>(){ new Position() {x=1,y=2}, ...};
+Dictionary<string,int> dic = new Dictionary<string,int>() { {"apple",1}, {"arm",50}, ...};
+
+//匿名类型
+var变量可以申明为自定义的匿名类型
+只能有成员变量，不能有函数
+var v = new { x = 50, y = 50, z = 100};
+v.x //50
+v.y //50
+v.z //100
+
+//可空类型
+1.值类型是不能赋值为空的
+int c = null; //会报错
+
+2.申明时在值类型后面加?可以赋值为空
+int? c = 3;
+
+3.判断是否为空
+if( c.Hasvalue )
+{
+    console.writeLine(c);
+    Console.writeLine(c.value);
+}
+4.安全获取可空类型值
+int? val = null;
+4-1.如果为空默认返回值类型的默认值
+Console.WriteLine(val.GetvalueOrDefault());
+4-2.也可以指定一个默认值
+Console.WriteLine(val.GetvalueOrDefault(99));
+
+//引用类型的使用方法
+
+//相当于是一种语法糖能够帮助我们自动去判断引用类型是否为空
+//如果是null就不会执行也不会报错
+object o = null;
+Console.writeLine(o?.Tostring());
+
+//空合并操作符
+左边值 ?? 右边值
+
+如果左边值为null 
+就返回右边值
+否则返回左边值
+只要是可以为null的类型都能用
+
+//内插字符串
+关健符号：$
+用$来构造字符串，让字符串可以拼接变量
+string name = "syy";
+int age = 20;
+Console.WriteLine($"你好,{name},年龄：{age}");
+
+//函数单句简便写法
+函数() => 单句语句(返回值可以不写return);
+
+```
+
+# 值类型 引用类型 补充
+```c#
+#region 问题一 如何判断 值类型和引用类型
+//F12进到类型的内部去查看
+//是class就是引用
+//是struct就是值
+int i = 12;
+string str = "123";
+#endregion
+
+#region 问题二 语句块
+//命名空间
+//   ↓
+//类、接口、结构体
+//   ↓
+//函数、属性、索引器、运算符重载等（类、接口、结构体）
+//   ↓
+//条件分支、循环
+
+//上层语句块：类、结构体
+//中层语句块：函数
+//底层的语句块： 条件分支 循环等
+
+//我们的逻辑代码写在哪里？
+//函数、条件分支、循环-中底层语句块中
+
+//我们的变量可以申明在哪里？
+//上、中、底都能申明变量
+//上层语句块中：成员变量
+//中、底层语句块中：临时变量
+#endregion
+
+#region 问题三 变量的生命周期
+//编程时大部分都是 临时变量
+//在中底层申明的临时变量（函数、条件分支、循环语句块等）
+//语句块执行结束 
+//没有被记录的对象将被回收或变成垃圾
+//值类型：被系统自动回收
+//引用类型：栈上用于存地址的房间被系统自动回收，堆中具体内容变成垃圾，待下次GC回收
+
+int i2 = 1;
+string str2 = "123";
+
+//{
+//    int b = 1;
+//}
+//Console.WriteLine(b);
+//while(true)
+//{
+//    int index = 1;
+//}
+
+//想要不被回收或者不变垃圾
+//必须将其记录下来
+//如何记录？
+//在更高层级记录或者
+//使用静态全局变量记录
+b = 0;
+if(true)
+{
+    b = 1;
+}
+
+int c = 10;
+Test.TestI = c;
+
+//Game g = new Game();
+//while(true)
+//{
+
+//}
+#endregion
+
+#region 问题四 结构体中的值和引用
+//结构体本身是值类型
+//前提：该结构体没有做为其它类的成员
+//在结构体中的值，栈中存储值具体的内容
+//在结构体中的引用，堆中存储引用具体的内容
+
+//引用类型始终存储在堆中
+//真正通过结构体使用其中引用类型时只是顺藤摸瓜
+
+TestStrict ts = new TestStrict();
+#endregion
+
+#region 问题五 类中的值和引用
+//类本身是引用类型
+//在类中的值，堆中存储具体的值
+//在类中的引用，堆中存储具体的值
+
+//值类型跟着大哥走，引用类型一根筋
+Test t = new Test();
+#endregion
+
+#region 问题六 数组中的存储规则
+//数组本身是引用类型
+//值类型数组，堆中房间存具体内容
+//引用类型数组，堆中房间存地址
+int[] arrayInt = new int[5];
+object[] objs = new object[5];
+#endregion
+
+#region 问题七 结构体继承接口
+//利用里氏替换原则，用接口容器装载结构体存在装箱拆箱
+#endregion
+```
+

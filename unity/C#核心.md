@@ -77,6 +77,9 @@ class Person
     }
 }
 
+//get set单句语句可以简写为
+get => 返回值;
+
 Person p = new Person();
 p.Name = "xxx";
 
