@@ -595,7 +595,7 @@ Project Settings->Script Execution Order
 
 脚本模板路径
 
-```C#
+```csharp
 EditorVersion\Editor\Data\Resources\ScriptTemplates
 ```
 
@@ -619,7 +619,7 @@ EditorVersion\Editor\Data\Resources\ScriptTemplates
    >
    > 1、在C#里，对于Object，用new关键字来创建对象，会调用该类的构造函数，但Unity引擎对于MonoBehaviour类的对象，需要利用其构造函数做一些引擎内的事情，所以不提倡使用new关键字调用其构造函数，而是用Awake和Start函数来代替构造函数的功能。举个例子，下面部分是MonoBehaviour在C#这边的部分源码，可以看到，引擎自己在里面使用了构造函数：
    >
-   > ```C#
+   > ```csharp
    > // MonoBehaviour.bindings.cs文件夹
    > namespace UnityEngine
    > {
@@ -649,7 +649,7 @@ EditorVersion\Editor\Data\Resources\ScriptTemplates
    
    数据结构类一般也不需要继承MonoBehavior，因为数据只需要读取，也不需要挂载到场景当中，作为组件存在。
    
-   ```C#
+   ```csharp
    public class SceneMgr()
    {
        private static SceneMgr instance = new SceneMgr();
@@ -678,7 +678,7 @@ EditorVersion\Editor\Data\Resources\ScriptTemplates
 
 数据结构类或者单例管理类
 
-```C#
+```csharp
 //玩家信息类
 public class PlayerInfo
 {
@@ -758,7 +758,7 @@ Unity帮助我们记录了一个GameObject对象依附了哪些脚本；
 >
 > [MonoBehaviour-Awake() - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/MonoBehaviour.Awake.html)
 
-```C#
+```csharp
 private virtual void Awake() {
 		
 }
@@ -768,13 +768,13 @@ private virtual void Awake() {
 
 1. 没有继承MOnoBehavior类的时候,使用
 
-   ```C#
+   ```csharp
    Debug.Log(str);
    ```
 
 2. 继承了MonoBehavior，有一个现成的方法可以使用
 
-   ```C#
+   ```csharp
    print(str);
    ```
 
@@ -950,13 +950,13 @@ Inspector显示的可编辑内容就是脚本的成员变量
 
 加上强制序列化字段特性
 
-```C#
+```csharp
 [SerializeField]
 ```
 
 所谓序列化就是把一个对象保存到一个文件或数据库字段中去。
 
-```C#
+```csharp
 [SerializeField]
 private int privateInt;
 [SerializeField]
@@ -971,14 +971,14 @@ protected string protectedStr;
 
 在变量前加上特性
 
-```C#
+```csharp
 [HideInInspector]
 public int publicInt2 = 50;
 ```
 
 ## 知识点五 大部分类型都能显示编辑
 
-```C#
+```csharp
 public int[] array;
 public List<int> list;
 public E_TestEnum type;
@@ -995,7 +995,7 @@ public MyClass myClass;
 
 加上序列化特性
 
-```C#
+```csharp
 [System.Serializable]
 ```
 
@@ -1007,7 +1007,7 @@ public MyClass myClass;
 
 为成员分组，Header特性
 
-```C#
+```csharp
 [Header("基础属性")]
 public int age;
 public bool sex;
@@ -1020,7 +1020,7 @@ public int def;
 
 为变量添加说明
 
-```C#
+```csharp
 [Tooltip("闪避")]
 public int miss;
 ```
@@ -1029,7 +1029,7 @@ public int miss;
 
 让两个字段间出现间隔
 
-```C#
+```csharp
 [Space()]
 public int crit;
 ```
@@ -1038,7 +1038,7 @@ public int crit;
 
 [Range(最小值, 最大值)]
 
-```C#
+```csharp
 [Range(0,10)]
 public float luck;
 ```
@@ -1047,7 +1047,7 @@ public float luck;
 
  默认不写参数显示3行，写参数就是对应行
 
-```C#
+```csharp
 [Multiline(5)]
 public string tips;
 ```
@@ -1060,7 +1060,7 @@ public string tips;
 
 最少显示3行，最多4行，超过4行就显示滚动条
 
-```C#
+```csharp
 [TextArea(3,4)]
 public string myLife;
 ```
@@ -1075,7 +1075,7 @@ ContextMenuItem
 
 [ContextMenuItem("显示按钮名", "方法名")]
 
-```C#
+```csharp
 [ContextMenuItem("重置钱", "Test")]
 public int money;
 private void Test()
@@ -1088,7 +1088,7 @@ private void Test()
 
 [ContextMenu("测试函数")]
 
-```C#
+```csharp
 [ContextMenu("哈哈哈哈")]
 private void TestFun()
 {
@@ -1107,7 +1107,7 @@ private void TestFun()
 1. 如何让公共成员不在lnspector面板上设置
    如何让私有或保护成员可以在lnspector面板上设置
 
-   ```C#
+   ```csharp
    [HideOnInspector]
    public int publicInt;
    [SerializeField]
@@ -1142,13 +1142,13 @@ MonoBehavior->Behavior->Component->Object
 
 1.获取依附的GameObject
 
-```C#
+```csharp
 print(this.gameObject.name);
 ```
 
 2.获取依附的GameObject的位置信息
 
-```C#
+```csharp
 //得到对象位置信息
 print(this.transform.position);	//位置
 print(this.transform.eularAngeles);	//角度
@@ -1157,19 +1157,19 @@ print(this.transform.lossyScale);	//缩放大小
 
 这种写法和上面是一样的效果，都是得到依附的对象的位置信息
 
-```C#
+```csharp
 this.gameObject.transform
 ```
 
 3.获取脚本是否激活
 
-```c#
+```csharp
 this.enabled = false;
 ```
 
 获取别的脚本对象 依附的gameobject和 transform位置信息
 
-```C#
+```csharp
 print(otherLesson3.gameObject.name);
 print(otherLesson3.transform.position);
 ```
@@ -1182,19 +1182,19 @@ print(otherLesson3.transform.position);
 
 获取脚本的方法，如果获取失败，就是没有对应的脚本，会默认返回空。
 
-```c#
+```csharp
 Lesson3_Test t = this.GetComponent("Lesson3_Test") as Lesson3_Test;
 ```
 
 根据Type获取
 
-```C#
+```csharp
 t = t.GetComponent(typeof(Lesson3_Test)) as Lesson3_Test;
 ```
 
 根据泛型获取，建议使用泛型获取，因为不用二次转换
 
-```C#
+```csharp
 t = this.GetComponent<Lesson3_Test>();
 ```
 
@@ -1204,7 +1204,7 @@ t = this.GetComponent<Lesson3_Test>();
 
 ### 2.得到自己挂载的多个脚本
 
-```C#
+```csharp
 Lesson3[] array = this.GetComponents<Lesson3>();
 
 List<Lesson3> list = new List<Lesson3>();
@@ -1217,13 +1217,13 @@ this.GetComponents<Lesson3>(list);
 
 得子对象挂载脚本，单个
 
-```C#
+```csharp
 t = this.GetComponentInChildren<Lesson3_Test>(true);
 ```
 
 得子对象挂载脚本，多个
 
-```C#
+```csharp
 Lesson3_Test[] lts = this.GetComponentsInChildren<Lesson3_Test>(true);
 
 List<Lesson3_Test> list2 = new List<Lesson3_Test>();
@@ -1232,7 +1232,7 @@ this.GetComponetsInChildren<Lesson3_Test>(true, list2);
 
 ### 4.得到父对象挂载的脚本(它默认也会找自己身上是否挂载该脚本)
 
-```C#
+```csharp
 t = this.GetComponentInParent<Lesson3_Test>();
 
 lts = this.GetComponentsInParent<Lesson3_Test>();
@@ -1245,7 +1245,7 @@ this.GetComponentsInParent<Lesson3_Test>(lts);
 
 然后再来进行逻辑处理即可。
 
-```C#
+```csharp
 if (this.TryGetComponent<Lesson3_Test>(out l3t)) {
 	...
 }
@@ -1266,7 +1266,7 @@ this：代表自己；this.gameObject：依附的对象；this.transform：依�
 
 实现在A中的Start函数中让B脚本失活，请用代码失活。
 
-```C#
+```csharp
 public class A : MonoBehaviour
 {
     private void Start()
@@ -1286,7 +1286,7 @@ public class A : MonoBehaviour
 
 实现在A脚本的Start函数中将B对象上的B脚本失活。
 
-```C#
+```csharp
 public class A : MonoBehaviour
 {
     public GameObject bObj;
@@ -1330,7 +1330,7 @@ GameObject->Object
 
 ##  知识点一 重要成员（字段）
 
-```C#
+```csharp
 //名字
 print(this.gameObject.name);
 this.gameObject.name = "Panzi";
@@ -1353,7 +1353,7 @@ print(this.gameObject.transform.position);
 
 ### 创建自带几何体
 
-```C#
+```csharp
 //只要得到了一个GameObject对象 我就可以得到它身上挂在的任何脚本信息
 //通过obj.GetComponent来得去
 GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1374,7 +1374,7 @@ obj.name = "唐老狮创建的立方体";
 
 通过对象名无法查找到多个对象，如果场景中存在多个满足条件的对象，我们无法准确确定找到的是谁。
 
-```C#
+```csharp
 //通过对象名查找
 //这个查找效率比较低下  因为他会在场景中的所有对象去查找
 //没有找到 就会返回null
@@ -1391,7 +1391,7 @@ else
 
 #### 通过tag来查找对象
 
-```C#
+```csharp
 //GameObject obj3 = GameObject.FindWithTag("Player");
 //该方法和上面这个方法 效果一样 只是名字不一样而已
 GameObject obj3 = GameObject.FindGameObjectWithTag("Player");
@@ -1414,7 +1414,7 @@ print("找到tag为Player对象的个数" + objs.Length);
 
 还有几个查找对象相关是用的比较少的方法 是GameObject父类 Object提供的方法
 
-```C#
+```csharp
 //它可以找到场景中挂载的某一个脚本对象
 //效率更低 上面的GameObject.Find 和通过FindWithTag找 只是遍历对象
 //这个方法 不仅要遍历对象 还要遍历对象上挂载的脚本 
@@ -1438,7 +1438,7 @@ C#中的Object 命名空间是在System中的
 
 实例化(克隆)对象 它的作用 是根据一个GameObject对象 创建出一个和它一模一样的对象
 
-```C#
+```csharp
 GameObject obj5 = GameObject.Instantiate(myObj);
 //以后学了更多知识点 就可以在这操作obj5
 //如果你继承了 MonoBehavior 其实可以不用写GameObject一样可以使用
@@ -1460,7 +1460,7 @@ GameObject obj5 = GameObject.Instantiate(myObj);
 
 因为 是**异步的** 降低卡顿的几率。
 
-```C#
+```csharp
 //是UnityEngine.Object当中的方法
 GameObject.Destroy(myObj2);
 //第二个参数 代表延迟几秒钟删除
@@ -1475,7 +1475,7 @@ GameObject.Destroy(obj5, 5);
 
 下面这个方法 就是立即把对象 从内存中移除C了
 
-```C#
+```csharp
 GameObject.DestroyImmediate(myObj);	//立即删除这个对象
 ```
 
@@ -1489,7 +1489,7 @@ GameObject.DestroyImmediate(myObj);	//立即删除这个对象
 
 比如下面这句代码的意思 就是自己依附的GameObject对象 过场景不被删除
 
-```C#
+```csharp
 //是UnityEngine.Object当中的方法
 GameObject.DontDestroyOnLoad(this.gameObject);
 //如果继承MOnoBehavior也可以直接写
@@ -1502,7 +1502,7 @@ GameObject.DontDestroyOnLoad(this.gameObject);
 
 new一个GameObject就是在创建一个空物体
 
-```C#
+```csharp
 GameObject obj6 = new GameObject();
 GameObject obj7 = new GameObject("唐老狮创建的空物体");
 GameObject obj8 = new GameObject("顺便加脚本的空物体", typeof(Lesson2),typeof(Lesson1));
@@ -1514,7 +1514,7 @@ GameObject obj8 = new GameObject("顺便加脚本的空物体", typeof(Lesson2),
 
 如果想要动态的添加继承MonoBehavior的脚本，在某一个对象上，直接使用GameObject提供的方法即可
 
-```C#
+```csharp
 Lesson1 les1 = obj6.AddComponent(typeof(Lesson1)) as Lesson1;
 //用泛型更方便
 Lesson2 les2 = obj6.AddComponent<Lesson2>();
@@ -1527,7 +1527,7 @@ Lesson2 les2 = obj6.AddComponent<Lesson2>();
 
 下面两种比较的方法是一样的.
 
-```C#
+```csharp
 if(this.gameObject.CompareTag("Player"))
 {
     print("对象的标签 是 Player");
@@ -1540,7 +1540,7 @@ if(this.gameObject.tag == "Player")
 
 ### 设置激活失活
 
-```C#
+```csharp
 //false 失活
 //true 激活
 obj6.SetActive(false);
@@ -1562,7 +1562,7 @@ obj8.SetActive(false);
 
 它会去找到，自己身上所有的脚本，有这个名字的函数去执行。
 
-```C#
+```csharp
 this.gameObject.SendMessage("TestFun");
 this.gameObject.SendMessage("TestFun2", 199);
 
@@ -1589,7 +1589,7 @@ GameObject的常用内容
 
 1.一个空物体上挂了一个脚本，游戏运行时该脚本可以实例化出之前的坦克预设体
 
-```C#
+```csharp
 public class Lesson4_P1 : MonoBehaviour
 {
     public GameObject tankPrefab;
@@ -1603,7 +1603,7 @@ public class Lesson4_P1 : MonoBehaviour
 
 答案
 
-```C#
+```csharp
 private void Start()
 {
     GameObject tank = GameObject.Find("tank");
@@ -1624,7 +1624,7 @@ private void Start()
 
 实现在A脚本的Start函数中将B对象上的B脚本失活（用GameObject相关知识做)。
 
-```C#
+```csharp
 public class A : MonoBehaviour
 {
     private void Start()
@@ -1642,7 +1642,7 @@ public class A : MonoBehaviour
 
 3.一个对象A和一个对象B，在A上挂一个脚本，通过这个脚本可以让B对象改名，失活，延迟删除，立即删除。可以在lnspector窗口进行设置，让B实现不同的效果(提示: GameObject、枚举)
 
-```C#
+```csharp
 public enum E_Do_Type
 {
     //改名
@@ -1707,19 +1707,19 @@ Time相关内容主要用来干啥?
 
 时间停止
 
-```C#
+```csharp
 Time.timeScale = 0;
 ```
 
 正常
 
-```C#
+```csharp
 Time.timeScale = 1;
 ```
 
 2倍速
 
-```C#
+```csharp
 Time.timeScale = 2;
 ```
 
@@ -1727,13 +1727,13 @@ Time.timeScale = 2;
 
 帧间隔时间：Time.**deltaTime**，最近的一帧用了多长时间（秒），受scale影响
 
-```C#
+```csharp
 print("帧间隔时间" + Time.deltaTime);
 ```
 
 不受scale影响的帧间隔时间：Time.**unscaledDeltaTime**;
 
-```C#
+```csharp
 print("不受timeScale影响的帧间隔时间" + Time.unscaledDeltaTime);
 ```
 
@@ -1753,13 +1753,13 @@ Time.time：游戏当前时间（游戏未运行时为0）
 
 它主要用来计时 单机游戏中计时，受scale影响
 
-```C#
+```csharp
 print("游戏开始到现在的时间:" + Time.time);
 ```
 
 不受scale影响
 
-```C#
+```csharp
 print("不受scale影响的游戏开始到现在的时间:" + Time.unscaledTime);
 ```
 
@@ -1771,13 +1771,13 @@ print("不受scale影响的游戏开始到现在的时间:" + Time.unscaledTime)
 
 受scale影响
 
-```C#
+```csharp
 print(Time.fixedDeltaTime);
 ```
 
 不受scale影响
 
-```C#
+```csharp
 print(Time.fixedUnscaledDeltaTime);
 ```
 
@@ -1785,7 +1785,7 @@ print(Time.fixedUnscaledDeltaTime);
 
 从开始到现在游戏跑了多少帧(次循环)
 
-```C#
+```csharp
 print(Time.frameCount);
 ```
 
@@ -1839,13 +1839,13 @@ Vector3主要是用来表示三维坐标系中的一个点或者一个向量。
 
 声明
 
-```C#
+```csharp
 Vector3 v1 = new Vector3(0, 0, 0);
 ```
 
 Vector的基本计算
 
-```C#
+```csharp
 //其实就是运算符重载
 public static Vector3 operator +(Vector3 a, Vector3 b)
 public static Vector3 operator -(Vector3 a, Vector3 b)
@@ -1859,7 +1859,7 @@ public static bool operator !=(Vector3 lhs, Vector3 rhs)
 
 常用静态成员，大部分用来表示一个方向
 
-```C#
+```csharp
 public static Vector3 zero => zeroVector;
 public static Vector3 one => oneVector;
 public static Vector3 forward => forwardVector;
@@ -1883,7 +1883,7 @@ private static readonly Vector3 backVector = new Vector3(0f, 0f, -1f);
 
 常用的一个方法
 
-```C#
+```csharp
 //返回两点之间距离
 public static float Distance(Vector3 a, Vector3 b)
 {
@@ -1904,7 +1904,7 @@ public static float Distance(Vector3 a, Vector3 b)
 
 因为如果对象有父子关系，并且父对象位置不在原点，那么和面板上肯定就是不一样的
 
-```C#
+```csharp
 print(this.transform.position);
 ```
 
@@ -1914,7 +1914,7 @@ print(this.transform.position);
 
 那一定是通过localPosition来进行设置的。
 
-```C#
+```csharp
 print(this.transform.localPosition);
 ```
 
@@ -1932,7 +1932,7 @@ position和localPositio可能出现是一样的情况，是因为父对象是原
 >
 > [在Unity中不能对transform.position.x/y/z直接赋值的原因探究_自然妙有猫仙人的博客-CSDN博客_transform.position.x](https://blog.csdn.net/qq_32821435/article/details/79938144)
 
-```C#
+```csharp
 this.transform.position = new Vector3(10, 10, 10);
 this.transform.localPosition = Vector3.up * 10;
 
@@ -1955,7 +1955,7 @@ this.transform.localPosition = vPos;
 
 > [UnityEngine.Transform - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/Transform.html)
 
-```C#
+```csharp
 //对象当前的各朝向
 //对象当前的面朝向
 print(this.transform.forward);
@@ -1977,7 +1977,7 @@ print(this.transform.right);
 
 移动后的位置 = 当前位置 + 方向 * 速度 * 时间
 
-```C#
+```csharp
 this.transform.position = this.transform.position + this.transform.up * 1 * Time.deltaTime;
 //复合运算
 this.transform.position += this.transform.forward * 1 * Time.deltaTime;
@@ -1987,7 +1987,7 @@ this.transform.position += this.transform.forward * 1 * Time.deltaTime;
 
 > [Transform-Translate - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/Transform.Translate.html)
 
-```C#
+```csharp
 Transform.Translate;
 //6个重载，常用的是下面这个
 public void Translate(Vector3 translation, [DefaultValue("Space.Self")] Space relativeTo)
@@ -1999,7 +1999,7 @@ public void Translate(Vector3 translation, [DefaultValue("Space.Self")] Space re
 
 参数二：表示相对坐标系默认该参数是相对于自己坐标系的。
 
-```C#
+```csharp
 //1相对于世界坐标系的Z轴动，始终是朝世界坐标系的Z轴正方向移动
 this.transform.Translate(Vector3.forward * 1 * Time.deltaTime, Space.World);
 
@@ -2021,7 +2021,7 @@ this.transform.Translate(Vector3.forward * 1 * Time.deltaTime, Space.Self);
 
 如何声明？提供的常用静态属性和一个计算距离的方法是什么？
 
-```C#
+```csharp
 Vector3 v = new Vector3(x, y, z);
 ```
 
@@ -2056,7 +2056,7 @@ Vector3 v = new Vector3(x, y, z);
 
 通常使用API进行位移。
 
-```C#
+```csharp
 Translate(Vector3 translation, [DefaultValue("Space.Self")] Space relativeTo)
 ```
 
@@ -2070,7 +2070,7 @@ relativeTo：参照坐标系
 
 1.一个空对象上挂了一个脚本，这个脚本可以让游戏运行时，在场景中创建出一个n层由Cube构成的金字塔(提示:实例化预设体或者实例化自带几何体方法)
 
-```C#
+```csharp
 void InstantiateGoldenTower(int n = 7)
 {
     GameObject GoldenTower = new GameObject("GoldenTower");
@@ -2091,7 +2091,7 @@ void InstantiateGoldenTower(int n = 7)
 
 ### 第二题
 
-```C#
+```csharp
 this.transform.Translate(Vector3.forward, Space.World);
 this.transform.Translate(Vector3.forward, Space.Self);
 this.transform.Translate(this.transform.forward, Space.Self);
@@ -2106,7 +2106,7 @@ this.transform.Translate(this.transform.forward, Space.World);
 
 ### 第三题
 
-```C#
+```csharp
 this.transform.Translate(Vector3.forward * Time.deltaTime * 1f, Space.Self);
 this.transform.Translate(this.transform.forward * Time.deltaTime, Space.World);
 ```
@@ -2123,14 +2123,14 @@ this.transform.Translate(this.transform.forward * Time.deltaTime, Space.World);
 
 相对世界坐标角度
 
-```C#
+```csharp
 print(this.transform.eulerAngles);
 this.transform.eulerAngles = new Vector3(10, 10, 10);
 ```
 
 相对父对象角度
 
-```C#
+```csharp
 print(this.transform.localEulerAngles);
 this.transform.localEulerAngles = new Vector3(10, 10, 10);
 ```
@@ -2160,7 +2160,7 @@ Transform.Rotate
 第一个参数 相当于 是旋转的角度 每一帧 
 第二个参数 默认不填 就是相对于自己坐标系 进行的旋转
 
-```C#
+```csharp
 //每个轴 具体转多少度
 //第一个参数 相当于 是旋转的角度 每一帧 
 //第二个参数 默认不填 就是相对于自己坐标系 进行的旋转
@@ -2190,7 +2190,7 @@ this.transform.RotateAround(Vector3.zero, Vector3.right, 10 * Time.deltaTime);
 
 将坦克作为展示盘的子对象，然后围绕自身y轴旋转。
 
-```C#
+```csharp
 this.transform.Rotate(Vector3.up * 10 * Time.deltaTime);
 ```
 
@@ -2198,7 +2198,7 @@ this.transform.Rotate(Vector3.up * 10 * Time.deltaTime);
 
 2.在第一题的基础上，让坦克的炮台可以自动左右来回旋转，炮管可以自动上下抬起
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2249,7 +2249,7 @@ public class Lesson7_P : MonoBehaviour
 
 > 写的不太对，不要看
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2282,7 +2282,7 @@ public class Lesson7_P3 : MonoBehaviour
 
 ### 答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2371,7 +2371,7 @@ public class Lesson7_Exercises : MonoBehaviour
 
 注意：lossyScale不能修改
 
-```C#
+```csharp
 //相对世界坐标系
 print(this.transform.lossyScale);
 //相对本地坐标系（父对象）
@@ -2396,13 +2396,13 @@ this.transform.localScale += Vector3.one * Time.deltaTime;
 
 看向一个点，相对于世界坐标系的。
 
-```c#
+```csharp
 this.transform.LookAt(Vector3.zero);
 ```
 
 看向一个对象就传入一个对象的  Transform信息。
 
-```C#
+```csharp
 this.transform.LookAt(lookAtObj);
 ```
 
@@ -2418,7 +2418,7 @@ this.transform.LookAt(lookAtObj);
 
 ## 练习题
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2453,25 +2453,25 @@ public class Lesson8_p : MonoBehaviour
 
 获取父对象
 
-```C#
+```csharp
 print(this.transform.parent.name);
 ```
 
 设置父对象，断绝父子关系
 
-```C#
+```csharp
 this.transform.parent = null;
 ```
 
 设置父对象 `认爸爸`
 
-```C#
+```csharp
 this.transform.parent = GameObject.Find("Father2").transform;
 ```
 
 通过API来进行父子关系的设置
 
-```C#
+```csharp
 this.transform.SetParent(null);//断绝父子关系
 this.transform.SetParent(GameObject.Find("Father2").transform);//认爸爸
 ```
@@ -2485,7 +2485,7 @@ true：会保留世界坐标下的状态和父对象进行计算，得到本地�
 
 false：不会保留会直接把世界坐标系下的位置角度缩放，直接赋值到本地坐标系下，会参照父对象进行坐标缩放变换。
 
-```C#
+```csharp
 this.transform.SetParent(GameObject.Find("Father3").transform, false);
 ```
 
@@ -2493,7 +2493,7 @@ this.transform.SetParent(GameObject.Find("Father3").transform, false);
 
 就是和自己的所有儿子，断绝关系，没有父子关系了。
 
-```C#
+```csharp
 this.transform.DetachChildren();
 ```
 
@@ -2507,13 +2507,13 @@ this.transform.DetachChildren();
 
 GameObject相关的 查找 是不能找到失活对象的
 
-```C#
+```csharp
 print(this.transform.Find("Cube (1)").name);
 ```
 
 他只能找到自己的儿子 找不到自己的孙子 ！！！！！！
 
-```C#
+```csharp
 //GameObject是Cube (1)的子对象
 print(this.transform.Find("GameObject").name);
 ```
@@ -2527,7 +2527,7 @@ print(this.transform.Find("GameObject").name);
 1. 失活的儿子也会算数量
 2. 找不到孙子所以孙子不会算数量
 
-```C#
+```csharp
 //这是一个字段
 print(this.transform.childCount);
 ```
@@ -2538,7 +2538,7 @@ print(this.transform.childCount);
 
 返回值是**transform**，可以得到对应儿子的位置相关信息。
 
-```C#
+```csharp
 this.transform.GetChild(0);
 
 for (int i = 0; i < this.transform.childCount; i++)
@@ -2551,7 +2551,7 @@ for (int i = 0; i < this.transform.childCount; i++)
 
 一个对象，判断自己是不是另一个对象的儿子。
 
-```C#
+```csharp
 if(son.IsChildOf(this.transform))
 {
     print("是我的儿子");
@@ -2560,19 +2560,19 @@ if(son.IsChildOf(this.transform))
 
 得到自己作为儿子的编号，编号**从0开始**。
 
-```C#
+```csharp
 print(son.GetSiblingIndex());
 ```
 
 把自己设置为第一个儿子
 
-```C#
+```csharp
 son.SetAsFirstSibling();
 ```
 
 把自己设置为最后一个儿子
 
-```c#
+```csharp
 son.SetAsLastSibling();
 ```
 
@@ -2580,7 +2580,7 @@ son.SetAsLastSibling();
 
 就算你填的数量 超出了范围（负数或者更大的数） 不会报错 会直接设置成最后一个编号
 
-```C#
+```csharp
 son.SetSiblingIndex(1);
 ```
 
@@ -2588,25 +2588,25 @@ son.SetSiblingIndex(1);
 
 设置父对象相关的内容
 
-```C#
+```csharp
 transform.SetParent(obj, true/false);
 ```
 
 获取子对象
 
-```C#
+```csharp
 transform.childCount;
 ```
 
 抛弃妻子
 
-```C#
+```csharp
 transform.DetachChildren();
 ```
 
 儿子的操作
 
-```C#
+```csharp
 transform.IsChildOf(obj);
 transform.GetSiblingIndex();
 transform.SetSiblingIndex(int);
@@ -2620,7 +2620,7 @@ transform.SetAsLastSibling();
 
 请为Transform写一个拓展方法，可以将它的子对象按名字的长短进行排序改变他们的顺序，名字短的在前面，名字长的在后面。
 
-```C#
+```csharp
 public static class Lesson9_P
 {
     public static void SortByName(this Transform transform)
@@ -2644,7 +2644,7 @@ public static class Lesson9_P
 
 请为Transform写一个拓展方法，传入一个名字查找子对象，即使是子对象的子对象也能查找到
 
-```C#
+```csharp
 public static Transform FindInAllSubObject(this Transform parent, string name)
 {
     Transform ret = parent.Find(name);
@@ -2665,7 +2665,7 @@ public static Transform FindInAllSubObject(this Transform parent, string name)
 
 ### 答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2762,13 +2762,13 @@ public static class Tools
 
 **transform.InverseTransformDirection**：世界坐标系的**方向**，转换为相对本地坐标系的**方向** （不受缩放影响）
 
-```C#
+```csharp
 //受缩放影响
 print("转换后的点 " + this.transform.InverseTransformPoint(Vector3.forward));
 print("转换后的方向(受缩放影响)" + this.transform.InverseTransformVector(Vector3.forward));
 ```
 
-```C#
+```csharp
 //世界坐标系的方向 转换 为相对本地坐标系的方向 
 //不受缩放影响
 print("转换后的方向" + this.transform.InverseTransformDirection(Vector3.forward));
@@ -2786,7 +2786,7 @@ print("转换后的方向" + this.transform.InverseTransformDirection(Vector3.fo
 
 **transform.TransformVector**：本地坐标系的**方向**，转换为相对世界坐标系的方向（不受缩放影响）
 
-```C#
+```csharp
 //本地坐标系的点 转换 为相对世界坐标系的点 受到缩放影响
 print("本地 转 世界 点" + this.transform.TransformPoint(Vector3.forward));
 
@@ -2803,7 +2803,7 @@ print("本地 转 世界 方向" + this.transform.TransformVector(Vector3.forwar
 
 一个物体A，不管它在什么位置，写一个方法，只要执行这个方法就可以在它的左前方(-1,0,1)，处创建一个空物体
 
-```C#
+```csharp
 public void CreateObj()
 {
     GameObject obj = new GameObject("左前方的物体");
@@ -2815,7 +2815,7 @@ public void CreateObj()
 
 一个物体A，不管它在什么位置，写一个方法，只要执行这个方法就可以在它的前方创建出3个球体，位置分别是（0,0,1）,（0,0,2）,（0,0,3）
 
-```C#
+```csharp
 public void CreateSphere()
 {
     for (int i = 0; i < 3; ++i)
@@ -2828,7 +2828,7 @@ public void CreateSphere()
 
 ### 答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2889,7 +2889,7 @@ public class Lesson10_Exercises : MonoBehaviour
 
 比如： 1.可以做发射子弹；2.可以控制摄像机 转动
 
-```C#
+```csharp
 //鼠标按下一瞬间 进入
 //0左键 1右键 2中键
 //只要按下的这一瞬间 进入一次
@@ -2921,7 +2921,7 @@ print(Input.mouseScrollDelta);
 
 注意：如果使用字符串重载，则只能传入小写字母字符串。
 
-```C#
+```csharp
 //比如说 按一个键释放一个技能或者切换武器 等等的操作
 
 //键盘按下
@@ -2975,7 +2975,7 @@ if( Input.GetKey(KeyCode.W) )
 
 **Mouse Y**：鼠标垂直移动
 
-```C#
+```csharp
 //键盘AD按下时 返回 -1到1之间的变换
 //相当于 得到得这个值 就是我们的 左右方向 我们可以通过它来控制 对象左右移动 或者左右旋转
 float h = Input.GetAxis("Horizontal");
@@ -3003,19 +3003,19 @@ print(Input.GetAxis("Mouse Y"));
 
 是否有任意键或鼠标长按
 
-```C#
+```csharp
 if (Input.anyKey) ...
 ```
 
 是否有任意键或鼠标按下
 
-```C#
+```csharp
 if (Input.anyKeyDown) ...
 ```
 
 获取当前帧输入的是什么按键
 
-```C#
+```csharp
 //这一帧的键盘输入
 print(Input.inputString);
 ```
@@ -3024,19 +3024,19 @@ print(Input.inputString);
 
 得到连接的手柄的所有按钮名字
 
-```C#
+```csharp
 string[] strs = Input.GetJoystickNames();
 ```
 
 某一个手柄键按下
 
-```C#
+```csharp
 if(Input.GetButtonDown("Jump"))
 ```
 
 某一个手柄键抬起
 
-```C#
+```csharp
 if(Input.GetButton("Jump"))
 ```
 
@@ -3046,7 +3046,7 @@ if(Input.GetButton("Jump"))
 
 触摸次数。保证在整个帧期间不会更改。（只读）
 
-```C#
+```csharp
 if(Input.touchCount > 0)
 {
     Touch t1 = Input.touches[0];
@@ -3061,7 +3061,7 @@ if(Input.touchCount > 0)
 
 > 该属性指示系统是否处理多点触控。
 
-```C#
+```csharp
 Input.multiTouchEnabled = false;
 ```
 
@@ -3069,19 +3069,19 @@ Input.multiTouchEnabled = false;
 
 是否开启陀螺仪 必须开启 才能正常使用
 
-```C#
+```csharp
 Input.gyro.enabled = true;
 ```
 
 重力加速度向量
 
-```C#
+```csharp
 print(Input.gyro.gravity);
 ```
 
 旋转速度
 
-```C#
+```csharp
 print(Input.gyro.rotationRate);
 ```
 
@@ -3091,7 +3091,7 @@ print(Input.gyro.rotationRate);
 
 手机怎么动它怎么动
 
-```C#
+```csharp
 print(Input.gyro.attitude);
 ```
 
@@ -3111,7 +3111,7 @@ Input类提供大部分和输入相关的内容：鼠标、键盘、触屏、手
 
 1.使用之前的坦克预设体，用WASD键控制坦克的前景后退，左右转向
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3138,7 +3138,7 @@ public class Lesson11_P : MonoBehaviour
 
 2.在上一题的基础上，鼠标左右移动控制炮台的转向
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3187,7 +3187,7 @@ public class Lesson11_P : MonoBehaviour
 
 当前屏幕设备分辨率
 
-```C#
+```csharp
 Resolution r = Screen.currentResolution;
 print("当前屏幕分辨率的宽" + r.width + "高" + r.height);
 ```
@@ -3198,7 +3198,7 @@ print("当前屏幕分辨率的宽" + r.width + "高" + r.height);
 
 一般写代码，要用窗口宽高做计算时，就用他们。
 
-```C#
+```csharp
 print(Screen.width);
 print(Screen.height);
 ```
@@ -3207,7 +3207,7 @@ print(Screen.height);
 
 > 节能设置，允许屏幕在无用户交互一段时间后变暗。
 
-```C#
+```csharp
 Screen.sleepTimeout = SleepTimeout.NeverSleep;
 ```
 
@@ -3215,7 +3215,7 @@ Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 运行时是否全屏模式
 
-```C#
+```csharp
 Screen.fullScreen = true;
 ```
 
@@ -3229,13 +3229,13 @@ Screen.fullScreen = true;
 
 窗口模式：FullScreenMode.Windowed
 
-```c#
+```csharp
 Screen.fullScreenMode = FullScreenMode.Windowed;
 ```
 
 移动设备屏幕转向相关
 
-```C#
+```csharp
 //移动设备屏幕转向相关
 //允许自动旋转为左横向 Home键在左
 Screen.autorotateToLandscapeLeft = true;
@@ -3256,7 +3256,7 @@ Screen.orientation = ScreenOrientation.Landscape;
 
 2.在上一题的基础上，加入长按鼠标右键移动鼠标可以让摄像机围着坦克旋转，改变观察坦克的视角
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3311,7 +3311,7 @@ public class Lesson12_P : MonoBehaviour
 
 ### 答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3387,7 +3387,7 @@ public class Lesson11_Exercises : MonoBehaviour
 }
 ```
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3563,20 +3563,20 @@ Unity提供了直接获取的方法。
 
 如果有多个主摄像机，则获取第一个。一般来说，只有一个主摄像机。
 
-```C#
+```csharp
 //主摄像机的获取
 print(Camera.main.name);
 ```
 
 获取摄像机的数量
 
-```C#
+```csharp
 print(Camera.allCamerasCount);
 ```
 
 得到所有摄像机
 
-```C#
+```csharp
 Camera[] allCamera = Camera.allCameras;
 print(allCamera.Length);
 ```
@@ -3585,7 +3585,7 @@ print(allCamera.Length);
 
 摄像机剔除前处理的委托函数
 
-```C#
+```csharp
 //参数是一个Camera
 Camera.onPreCull += (c) =>
 {
@@ -3595,7 +3595,7 @@ Camera.onPreCull += (c) =>
 
 摄像机渲染后处理的委托
 
-```C#
+```csharp
 //参数是一个Camera
 Camera.onPoseCull _= (c)
 {
@@ -3609,7 +3609,7 @@ Camera.onPoseCull _= (c)
 
 比如 下面这句代码 就是得到主摄像机对象 上的深度 进行设置
 
-```C#
+```csharp
 Camera.main.depth = 10;
 ```
 
@@ -3621,7 +3621,7 @@ Camera.main.depth = 10;
 
 转换过后，x和y对应的就是屏幕坐标，z对应的 是 这个3D物体 里我们的摄像机有多远。
 
-```C#
+```csharp
 Vector3 v = Camera.main.WorldToScreenPoint(this.transform.position);
 print(v);
 ```
@@ -3638,7 +3638,7 @@ print(v);
 
 > 这个z就是摄像机的z离转换后z坐标的距离
 
-```C#
+```csharp
 //不断获取鼠标位置，然后重置物体位置。
 Vector3 v = Input.mousePosition;
 v.z = 5;
@@ -3651,7 +3651,7 @@ obj.position = Camera.main.ScreenToWorldPoint(v);
 
 1.游戏画面中央有一个立方体，请将该立方体的世界坐标系位置，转换为屏幕坐标，并打印出来。
 
-```C#
+```csharp
 void Start()
 {
     GameObject cube = GameObject.Find("Lesson14");
@@ -3663,7 +3663,7 @@ void Start()
 
 2.在屏幕上点击一下鼠标，则在对应的世界坐标位置创建一个Cube出来。
 
-```C#
+```csharp
 void Update()
 {
     if (Input.GetMouseButtonDown(0))
@@ -3707,7 +3707,7 @@ void Update()
 
 答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3836,7 +3836,7 @@ public class Lesson15_Exercises : MonoBehaviour
 
 碰撞触发接触时，会自动执行这个函数
 
-```C#
+```csharp
 private void OnCollisionEnter(Collision collision)
 {
     print(this.name + "被" + collision.gameObject.name + "碰到了");
@@ -3845,7 +3845,7 @@ private void OnCollisionEnter(Collision collision)
 
 碰撞结束分离时，会自动执行的函数
 
-```C#
+```csharp
 private void OnCollisionExit(Collision collision)
 {
     print(this.name + "和" + collision.gameObject.name + "结束了贴贴~");
@@ -3854,7 +3854,7 @@ private void OnCollisionExit(Collision collision)
 
 两个物体相互接触摩擦时，会不停的调用该函数
 
-```C#
+```csharp
 private void OnCollisionStay(Collision collision)
 {
     print(this.name + "和" + collision.gameObject.name + "一直在贴贴");
@@ -3865,7 +3865,7 @@ private void OnCollisionStay(Collision collision)
 
 触发开始的函数，当第一次接触时，会自动调用。
 
-```c#
+```csharp
 private void OnTriggerEnter(Collider other)
 {
     print(this.name + "和" + other.gameObject.name + "开始了贴贴");
@@ -3874,7 +3874,7 @@ private void OnTriggerEnter(Collider other)
 
 触发结束的函数，当水乳相融的状态结束时，会调用一次。
 
-```C#
+```csharp
 private void OnTriggerExit(Collider other)
 {
     print(this.name + "和" + other.gameObject.name + "结束了贴贴");
@@ -3883,7 +3883,7 @@ private void OnTriggerExit(Collider other)
 
 当两个对象水乳相融的时候，会不停调用。
 
-```C#
+```csharp
 private void OnTriggerStay(Collider other)
 {
     print(this.name + "和" + other.gameObject.name + "在贴贴");
@@ -3912,7 +3912,7 @@ private void OnTriggerStay(Collider other)
 2. 在上一题的基础上，加入子弹触碰到地面会自动消失的功能。
 3. 在上一题的基础上，在场景加入一些立方体，每个立方体被子弹打3下就会消失。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3983,7 +3983,7 @@ public class Lesson11_Exercises : MonoBehaviour
 
 Bullet.cs
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -4032,7 +4032,7 @@ public class BulletObj : MonoBehaviour
 
 CubeObj.cs
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -4066,7 +4066,7 @@ public class CubeObj : MonoBehaviour
 
 ### 1.首先应该获取刚体组件
 
-```C#
+```csharp
 rigidBody = this.GetComponent<Rigidbody>();
 ```
 
@@ -4078,20 +4078,20 @@ rigidBody = this.GetComponent<Rigidbody>();
 
 相对世界坐标系，Z轴正方向加了一个力
 
-```C#
+```csharp
 public void AddForce(Vector3 force)
 rigidBody.AddForce(Vector3.forward * 10);
 ```
 
 相对世界坐标系方法中，让对象相对于自己的面朝向移动。
 
-```C#
+```csharp
 rigidBody.AddForce(this.transform.forward * 10);
 ```
 
 相对本地坐标施加力。
 
-```c#
+```csharp
 public void AddRelativeForce(Vector3 force)
 rigidBody.AddRelativeForce(Vector3.forward * 10);
 ```
@@ -4100,14 +4100,14 @@ rigidBody.AddRelativeForce(Vector3.forward * 10);
 
 相对世界坐标
 
-```C#
+```csharp
 public void AddTorque(Vector3 torque)
 rigidBody.AddTorque(Vector3.up * 10);
 ```
 
 相对本地坐标
 
-```C#
+```csharp
 public void AddRelativeTorque(Vector3 torque)
 rigidBody.AddRelativeTorque(Vector3.up * 10);
 ```
@@ -4118,7 +4118,7 @@ rigidBody.AddRelativeTorque(Vector3.up * 10);
 
 一定要注意这一点。
 
-```C#
+```csharp
 rigidBody.velocity = Vector3.forward * 5;
 rigidBody.angularVelocity = Vector3.forward * 5;
 ```
@@ -4131,7 +4131,7 @@ rigidBody.angularVelocity = Vector3.forward * 5;
 
 > 也就是说，这个爆炸只影响本身。
 
-```C#
+```csharp
 public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius);
 //explosionForce：力大小
 //explosionPosition：产生力的位置（世界坐标系）
@@ -4151,12 +4151,12 @@ rigidBody.AddExplosionForce(100, Vector3.zero, 10);
 
 默认模式为：Force
 
-```C#
+```csharp
 public void AddForce(Vector3 force, [DefaultValue("ForceMode.Force")] ForceMode mode)
 rigidBody.AddForce(Vector3.forward * 10, ForceMode.Acceleration)
 ```
 
-```C#
+```csharp
 public enum ForceMode {
 	Force = 0,
 	Acceleration = 5,
@@ -4276,31 +4276,31 @@ v = 10  \* 1 / 1 = 10m /s（这里的m是米）
 
 播放
 
-```C#
+```csharp
 audioSource.Play();
 ```
 
 延迟（秒）播放
 
-```C#
+```csharp
 audioSource.PlayDelayed(5);
 ```
 
 停止播放
 
-```C#
+```csharp
 audioSource.Stop();
 ```
 
 暂停播放
 
-```C#
+```csharp
 audioSource.Pause();
 ```
 
 停止暂停
 
-```C#
+```csharp
 audioSource.UnPause();
 ```
 
@@ -4312,7 +4312,7 @@ audioSource.UnPause();
 
 如果是false就代表播放完毕了
 
-```C#
+```csharp
 audioSource.isPlaying
 ```
 
@@ -4324,7 +4324,7 @@ audioSource.isPlaying
 2. 直接在要播放音效的对象上挂载脚本，控制播放
 3. 需要播放时，实例化挂载了音效源脚本的对象，这种方法，其实用的比较少。
 
-```C#
+```csharp
 Instantiate(obj);
 ```
 
@@ -4332,7 +4332,7 @@ Instantiate(obj);
 
 用一个AudioSource来控制播放不同的音效
 
-```C#
+```csharp
 AudioSource aus = this.gameObject.AddComponent<AudioSource>();
 aus.clip = clip;
 aus.Play();
@@ -4347,7 +4347,7 @@ aus.Play();
 
 ## 知识点一 获取设备麦克风信息
 
-```C#
+```csharp
 string[] strs = Microphone.devices;
 for (int i = 0; i < strs.Length; i++)
 {
@@ -4362,7 +4362,7 @@ for (int i = 0; i < strs.Length; i++)
 参数三：录制时长
 参数四：采样率
 
-```C#
+```csharp
 clip = Microphone.Start(null, false, 10, 44100);
 ```
 
@@ -4370,7 +4370,7 @@ clip = Microphone.Start(null, false, 10, 44100);
 
 参数为设备名，表示停止某个设备的录制。
 
-```C#
+```csharp
 Microphone.End(null);
 ```
 
@@ -4384,7 +4384,7 @@ Microphone.End(null);
 
 规则：用于存储数组数据的 长度 = 声道数 * 剪辑长度。
 
-```C#
+```csharp
 float[] f = new float[clip.channels * clip.samples];
 clip.GetData(f, 0);
 print(f.Length);
@@ -4441,7 +4441,7 @@ print(f.Length);
 
 > 在加载场景前，需要把场景添加到场景列表当中
 
-```C#
+```csharp
 if( Input.GetKeyDown(KeyCode.Space) )
 {
     //切换到场景2
@@ -4459,7 +4459,7 @@ if( Input.GetKeyDown(KeyCode.Space) )
 
 > 退出只会在打包为exe文件之后才可以体现
 
-```C#
+```csharp
 if( Input.GetKeyDown(KeyCode.Escape) )
 {
     //执行这句代码 就会退出游戏
@@ -4475,7 +4475,7 @@ if( Input.GetKeyDown(KeyCode.Escape) )
 
 修改Cursor类中的visible属性
 
-```C#
+```csharp
 Cursor.visible = true;	//true显示，false隐藏
 ```
 
@@ -4487,7 +4487,7 @@ None：不锁定
 Locked:：锁定鼠标会被限制在，屏幕的中心点；不仅会被锁定，还会被隐藏，可以通过ESC键，摆脱编辑模式下的锁定。
 Confined：限制在窗口范围内。
 
-```C#
+```csharp
 Cursor.lockState = CursorLockMode.Confined;
 ```
 
@@ -4505,7 +4505,7 @@ Cursor.lockState = CursorLockMode.Confined;
 
 参数三：平台支持的光标模式（硬件或软件），一般用Auto
 
-```C#
+```csharp
 Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
 ```
 
@@ -4519,7 +4519,7 @@ Unity当中 的Random类 此Random(Unity)非彼Random（C#）
 
 使用随机数int重载，规则是左包含右不包含（左闭有开）
 
-```C#
+```csharp
 //0~99之间的数
 int randomNum = Random.Range(0, 100);
 print(randomNum);
@@ -4533,7 +4533,7 @@ float randomNumF = Random.Range(1.1f, 99.9f);
 
 ### C#中的随机数
 
-```c#
+```csharp
 System.Random r = new System.Random();
 r.Next(0, 100);
 ```
@@ -4542,7 +4542,7 @@ r.Next(0, 100);
 
 C#的自带委托，==Action==，==Func==
 
-```C#
+```csharp
 System.Action ac = () =>
         {
             print("123");
@@ -4570,7 +4570,7 @@ Unity的自带委托，==UnityEngine.Events.UnityAction==
 >
 > [Events.UnityEvent - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/Events.UnityEvent.html)
 
-```C#
+```csharp
 UnityAction uac = () =>
 {
 
@@ -4798,7 +4798,7 @@ Mathf是Unity专门封装的，不仅包含Math中的方法，还多了一些适
 
 ### 1.π - PI
 
-```C#
+```csharp
 //     The well-known 3.14159265358979... value (Read Only).
 public const float PI = (float)Math.PI;
 ```
@@ -4807,7 +4807,7 @@ public const float PI = (float)Math.PI;
 
 有不同重载，支持多种数值类型
 
-```C#
+```csharp
 public static int Abs(int value)
 {
     return Math.Abs(value);
@@ -4818,7 +4818,7 @@ public static int Abs(int value)
 
 注意返回值
 
-```C#
+```csharp
 print(Mathf.Ceil(1.3f));        //2
 print(Mathf.CeilToInt(1.3f));   //2
 
@@ -4837,7 +4837,7 @@ public static int CeilToInt(float f)
 
 注意返回值
 
-```C#
+```csharp
 print(Mathf.Floor(1.6f));       //1
 print(Mathf.FloorToInt(1.6f));  //1
 
@@ -4860,7 +4860,7 @@ public static int FloorToInt(float f)
 
 Clamp01：只传递一个值，边界值为0和1。
 
-```C#
+```csharp
 print(Mathf.Clamp(10, 11, 20)); //11
 print(Mathf.Clamp(13, 11, 20)); //13
 print(Mathf.Clamp(20, 11, 20)); //20
@@ -4903,7 +4903,7 @@ public static float Clamp01(float value)
 
 多个数值是使用变长参数实现的。
 
-```C#
+```csharp
 print(Mathf.Max(1, 2, 3, 4));   //4
 print(Mathf.Max(1, 2));         //2
 
@@ -4937,7 +4937,7 @@ public static int Max(params int[] values)
 
 多个数值是使用变长参数实现的。
 
-```C#
+```csharp
 print(Mathf.Min(1, 2, 3, 4, 545, 6, 1123, 123));    //1
 print(Mathf.Min(1.1f, 0.4f));   //0.4f
 
@@ -4969,7 +4969,7 @@ public static int Min(params int[] values)
 
 ### 8.一个数的n次幂 - Pow
 
-```C#
+```csharp
 print(Mathf.Pow(4, 2)); //16
 print(Mathf.Pow(2, 3)); //8
 
@@ -4981,7 +4981,7 @@ public static float Pow(float f, float p)
 
 ### 9.四舍五入 - Round，RoundToInt
 
-```C#
+```csharp
 print(Mathf.RoundToInt(1.2f));  //1
 print(Mathf.Round(1.5f));   //2f
 
@@ -4998,7 +4998,7 @@ public static int RoundToInt(float f)
 
 ### 10.返回一个数的平方根 - Sqrt
 
-```C#
+```csharp
 print(Mathf.Sqrt(2f));  //1.414214
 print(Mathf.Sqrt(3f));  //1.732051
 
@@ -5010,7 +5010,7 @@ public static float Sqrt(float f)
 
 ### 11.判断一个数是否是2的n次方 - IsPowerOfTwo
 
-```C#
+```csharp
 print(Mathf.IsPowerOfTwo(8));   //True   
 print(Mathf.IsPowerOfTwo(1));   //True
 print(Mathf.IsPowerOfTwo(3));   //False
@@ -5021,7 +5021,7 @@ public static extern bool IsPowerOfTwo(int value);
 
 ### 12.判断正负数，返回它的符号 - Sign
 
-```C#
+```csharp
 print(Mathf.Sign(-1));  //-1
 print(Mathf.Sign(2));   //1
 print(Mathf.Sign(0));   //0
@@ -5038,7 +5038,7 @@ public static float Sign(float f)
 
 Lerp函数公式：
 
-```C#
+```csharp
 result = start + (end - start) * t
 result = Mathf.Lerp(start, end, t);
 ```
@@ -5051,7 +5051,7 @@ t为插值系数，取值范围为 0~1
 
 因为start一直在变大，end - start的值一直在变小。
 
-```C#
+```csharp
 start = Mathf.Lerp(start, 10, Time.dletatime);
 ```
 
@@ -5061,7 +5061,7 @@ start = Mathf.Lerp(start, 10, Time.dletatime);
 
 因为start不变，end - start的值由time决定，当time为1时，到达end。
 
-```C#
+```csharp
 time += Time.deltaTime;
 result = Mathf.Lerp(start, 10, time);
 ```
@@ -5070,7 +5070,7 @@ result = Mathf.Lerp(start, 10, time);
 
 使用线性插值实现一个方块跟随另一个方块移动
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5148,7 +5148,7 @@ public class Lesson1_p : MonoBehaviour
 
 使用Mathf.Deg2Rad和Mathf.Rad2Deg
 
-```C#
+```csharp
 //弧度转角度
 float rad = 1;
 float anger = rad * Mathf.Rad2Deg;
@@ -5180,7 +5180,7 @@ print(rad);     //0.01745329
 
 传入一个弧度，返回对应的函数值。
 
-```C#
+```csharp
 public static float Sin(float f)
 {
     return (float)Math.Sin(f);
@@ -5214,7 +5214,7 @@ print(Mathf.Tan(30 * Mathf.Deg2Rad) * 3);   //1.732051
 
 使用Asin，Acos，Atan，传入一个正、余弦值，正切值，返回对应的弧度
 
-```C#
+```csharp
 public static float Asin(float f)
 {
     return (float)Math.Asin(f);
@@ -5246,7 +5246,7 @@ print(Mathf.Atan(0.5773503f) * Mathf.Rad2Deg);  //30
 
 实现一个物体按曲线移动(正弦或者余弦曲线)
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5290,7 +5290,7 @@ public class Lesson2_p : MonoBehaviour
 
 目前学习的和世界坐标系相关的，修改他们 会是相对世界坐标系的变化。
 
-```C#
+```csharp
 this.transform.position;
 this.transform.rotation;
 this.transform.eulerAngles;
@@ -5315,7 +5315,7 @@ this.transform.lossyScale;
 
 > 加了local的就是本地坐标
 
-```C#
+```csharp
 this.transform.localPosition;
 this.transform.localEulerAngles;
 this.transform.localRotation;
@@ -5340,7 +5340,7 @@ this.transform.localScale;
 
 通过鼠标位置获取屏幕坐标
 
-```C#
+```csharp
 Input.mousePosition;
 Screen.width;
 Screen.height;
@@ -5374,7 +5374,7 @@ x，y，width，height都是0~1。
 
 世界转本地
 
-```C#
+```csharp
 this.transform.InverseTransformDirection
 this.transform.InverseTransformPoint
 this.transform.InverseTransformVector
@@ -5382,7 +5382,7 @@ this.transform.InverseTransformVector
 
 本地转世界
 
-```C#
+```csharp
 this.transform.TransformDirection
 this.transform.TransformPoint  
 this.transform.TransformVector
@@ -5390,37 +5390,37 @@ this.transform.TransformVector
 
 世界转屏幕
 
-```C#
+```csharp
 Camera.main.WorldToScreenPoint
 ```
 
 屏幕转世界
 
-```C#
+```csharp
 Camera.main.ScreenToWorldPoint
 ```
 
 世界转视口
 
-```C#
+```csharp
 Camera.main.WorldToViewportPoint
 ```
 
 视口转世界
 
-```C#
+```csharp
 Camera.main.ViewportToWorldPoint
 ```
 
 视口转屏幕
 
-```C#
+```csharp
 Camera.main.ViewportToScreenPoint
 ```
 
 屏幕转视口
 
-```C#
+```csharp
 Camera.main.ScreenToViewportPoint
 ```
 
@@ -5440,7 +5440,7 @@ Unity当中，使用三维、二维向量，即Vector3和Vector2
 
 Vector2、Vector3即可以代表一个点，也可以代表一个方向。
 
-```C#
+```csharp
 print(this.transform.position);	//表示坐标
 print(this.transform.forward);	//表示这个物体的面朝向的方向
 ```
@@ -5455,7 +5455,7 @@ B（点）向量：（x2，y2）
 
 向量BA为A - B，即（x1 - x2，y1 - y2）。
 
-```C#
+```csharp
 Vector3 A = new Vector3(1, 0, 0);
 Vector3 B = new Vector3(2, 0, 0);
 Vector3 AB = B - A;
@@ -5483,7 +5483,7 @@ print(BA);  //-1,0,0
 
 负向量和原向量方向相反
 
-```C#
+```csharp
 print(Vector3.zero);
 print(Vector3.forward);
 print(-Vector3.forward);
@@ -5499,7 +5499,7 @@ print(-Vector3.forward);
 
 Vector3中提供了获取向量模长的成员属性：magnitude
 
-```C#
+```csharp
 print(AB.magnitude);
 Vector3 C = new Vector3(5, 6, 7);
 print(C.magnitude);
@@ -5525,7 +5525,7 @@ A向量(x,y,z)，模长 = 根号（x^2 + y ^ 2 + z ^ 2）
 
 Vector3中提供了获取单位向量的成员属性：normalized
 
-```C#
+```csharp
 print(AB.normalized);
 print(AB / AB.magnitude);
 ```
@@ -5570,7 +5570,7 @@ A + B = （x1 + x2， y1 + y2， z1 + z2）
 - 位置 + 向量：位置加向量，得到一个新的位置
   - 位置和向量相加 = 平移位置。
 
-```C#
+```csharp
 this.transform.position += new Vector3(1, 2, 3);
 this.transform.Translate(Vector3.forward * 5);
 
@@ -5604,7 +5604,7 @@ A + B = （x1 - x2， y1 - y2， z1 - z2）
   - 位置和向量相加 = 平移位置。
 - 向量 - 位置：一般情况下，没啥意义
 
-```C#
+```csharp
 this.transform.position -= new Vector3(1, 2, 3);
 this.transform.Translate(-Vector3.forward * 5);
 ```
@@ -5630,7 +5630,7 @@ A / a = （x / a， y / a，z / a）
 
 注意：全局缩放`lossyScale`不可修改，需要修改缩放，只能修改localScale
 
-```C#
+```csharp
 this.transform.localScale *= 2;
 this.transform.localScale /= 2;
 ```
@@ -5647,7 +5647,7 @@ this.transform.localScale /= 2;
 
 摄像机一直在物体的后方4米，向上偏7米的位置
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5711,7 +5711,7 @@ A **·** B = Xa \* Xb + Ya \* Yb + Za \* Zb
 
 使用Debug.DrawLine和Debug.DrawDRay，可以画出辅助线和辅助射线。
 
-```C#
+```csharp
 public static void DrawLine(Vector3 start, Vector3 end, Color color);
 public static void DrawLine(Vector3 start, Vector3 end, Color color, float duration);
 
@@ -5729,7 +5729,7 @@ public static void DrawRay(Vector3 start, Vector3 dir, Color color, float durati
 
 > 注意，这里求方向需要使用的是当前的面朝向向量，和AB向量
 
-```C#
+```csharp
 Debug.DrawRay(this.transform.position, this.transform.forward, Color.red);
 Debug.DrawRay(this.transform.position, targetTransform.position - transform.position, Color.red);
 
@@ -5774,7 +5774,7 @@ public static float Dot(Vector3 lhs, Vector3 rhs)
 
 两者的结果是一致的。
 
-```C#
+```csharp
 //计算
 dotRet = Vector3.Dot(transform.forward, (targetTransform.position - transform.position).normalized);
 print("计算角度为：" + Mathf.Acos(dotRet) * Mathf.Rad2Deg);
@@ -5809,7 +5809,7 @@ public static float Angle(Vector3 from, Vector3 to)
 
 当一个物体B在物体A前方45度角范围内，并且离A只有5米距离时，在控制台打印“发现入侵者”
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5894,7 +5894,7 @@ Z = Xa \* Yb - Ya \* Xb
 
 使用API`Vector3.Cross`
 
-```C#
+```csharp
 print(Vector3.Cross(a.position, b.position));
 ```
 
@@ -5928,7 +5928,7 @@ y小于0 证明 B在A左侧
 1. 判断一个物体B位置再另一个物体A的位置的左上，左下，右上，右下哪个方位。
 2. 当一个物体B在物体A左前方20度角或右前方30度范围内，并且离A只有5米距离时，在控制台打印"发现入侵者"
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5978,7 +5978,7 @@ public class Lesson7_p : MonoBehaviour
 
 ### 唐老狮答案
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6047,7 +6047,7 @@ public class FindEnemy2 : MonoBehaviour
 
 ### 1.先快后慢 每帧改变start位置 位置无限接近 但不会得到end位置
 
-```C#
+```csharp
 a.position = Vector3.Lerp(a.position, target.position, Time.deltaTime);
 ```
 
@@ -6055,7 +6055,7 @@ a.position = Vector3.Lerp(a.position, target.position, Time.deltaTime);
 
 注意：如果目标物体位置改变了，则需要重置参数。
 
-```C#
+```csharp
 b.position = Vector3.Lerp(startPos, nowTarget, time);
 time += Time.deltaTime;
 //如果目标位置改变了，需要重置参数
@@ -6077,7 +6077,7 @@ if (target.position != nowTarget)
 
 在Unity当中，使用`Vector3.Slerp`，进行球性插值计算。
 
-```C#
+```csharp
 c.position = Vector3.Slerp(c.position, target.position, Time.deltaTime);
 ```
 
@@ -6094,7 +6094,7 @@ c.position = Vector3.Slerp(c.position, target.position, Time.deltaTime);
 
 摄像机一直在物体的后方4米，向上偏7米的位置。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6140,7 +6140,7 @@ public class Lesson8_P : MonoBehaviour
 
 通过球性插值模拟太阳的升降变化
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6301,7 +6301,7 @@ Unity中X轴达到90度时，会产生万向节死锁，此时旋转y轴和z轴�
 
 四元数Q= [cos(β / 2)，sin(β / 2) x，sin(β / 2) y，sin( p / 2) z]
 
-```C#
+```csharp
 Quaternion q = new Quaternion(sin(β/2)x, sin(β/2)y, sin(β/2)z,cos(β/2));
 ```
 
@@ -6309,7 +6309,7 @@ Quaternion q = new Quaternion(sin(β/2)x, sin(β/2)y, sin(β/2)z,cos(β/2));
 
 四元数Q = Quaternion.AngleAxis(角度,轴);
 
-```C#
+```csharp
 Quaternion q = Quaternion.AngleAxis(60, Vector3.right);
 ```
 
@@ -6317,7 +6317,7 @@ Quaternion q = Quaternion.AngleAxis(60, Vector3.right);
 
 初始化了一个四元数，表示绕x轴旋转60度。
 
-```C#
+```csharp
 //四元数Q = [cos(β/2),  sin(β/2)x, sin(β/2)y, sin(β/2)z]
 Quaternion q = new Quaternion(Mathf.Sin(30 * Mathf.Deg2Rad) * 1, 0, 0, Mathf.Cos(30 * Mathf.Deg2Rad));
 GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -6328,7 +6328,7 @@ obj.transform.rotation = q;
 
 > [Quaternion-AngleAxis - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/Quaternion.AngleAxis.html)
 
-```C#
+```csharp
 Quaternion q2 = Quaternion.AngleAxis(60, Vector3.right);
 ```
 
@@ -6338,18 +6338,18 @@ Quaternion q2 = Quaternion.AngleAxis(60, Vector3.right);
 
 欧拉角转四元数
 
-```C#
+```csharp
 Quaternion.Euler(x,y,z)
 ```
 
 四元数转欧拉角
 
-```C#
+```csharp
 Quaternion q;
 q.eulerAngles
 ```
 
-```C#
+```csharp
 print(Quaternion.Euler(q.eulerAngles));
 print(q.eulerAngles);
 //(0.5, 0.0, 0.0, 0.9)
@@ -6375,7 +6375,7 @@ print(q.eulerAngles);
 
 我们想让物体绕y轴转，但是由于万向节死锁，物体会绕着z轴转。
 
-```C#
+```csharp
 //start
 this.transform.eulerAngles = Vector3.right * 90;
 
@@ -6391,7 +6391,7 @@ this.transform.rotation = Quaternion.Euler(e);
 >
 > 注意：这里的旋转是相对于本地坐标系的
 
-```C#
+```csharp
 this.transform.rotation *= Quaternion.AngleAxis(1, Vector3.up);
 ```
 
@@ -6421,14 +6421,14 @@ this.transform.rotation *= Quaternion.AngleAxis(1, Vector3.up);
 
 Unity当中，使用`Quaternion.identity`
 
-```C#
+```csharp
 print(Quaternion.identity); //(0.0, 0.0, 0.0, 1.0)
 testObj.rotation = Quaternion.identity;
 ```
 
 何时使用：初始化对象时，可以使用单位四元数
 
-```C#
+```csharp
 Instantiate(testObj, Vector3.zero, Quaternion.identity);
 ```
 
@@ -6452,7 +6452,7 @@ Lerp的效果相比Slerp更快，但是如果旋转范围较大效果较差。
 
 所以建议使用Slerp进行插值运算
 
-```C#
+```csharp
 a.rotation = Quaternion.Slerp(a.rotation, targetTransform.rotation, Time.deltaTime);
 
 time += Time.deltaTime;
@@ -6461,7 +6461,7 @@ b.rotation = Quaternion.Slerp(start, targetTransform.rotation, time);
 
 ## 知识点三 LookRotation，向量指向转四元数
 
-```C#
+```csharp
 Quaternino.LookRotation(面朝向量);
 ```
 
@@ -6477,7 +6477,7 @@ LookRoataion方法可以将传入的面朝向量转换为对应的四元数角�
 
 利用四元数的LookRotation方法，实现LookAt的效果
 
-```C#
+```csharp
 a.rotation = Quaternion.LookRotation(b.position - a.position);
 ```
 
@@ -6485,7 +6485,7 @@ a.rotation = Quaternion.LookRotation(b.position - a.position);
 
 将之前摄像机移动的练习题中的LookAt换成LookRotation实现并且通过Slerp来缓慢看向玩家
 
-```C#
+```csharp
 Quaternion tempQuat = Quaternion.LookRotation(player.position - Camera.main.transform.position);
 
 Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, tempQuat, Time.deltaTime);
@@ -6503,7 +6503,7 @@ q3 = q1 * q2
 
 注意：旋转相对的坐标系是物体==自身坐标系==
 
-```C#
+```csharp
 Quaternion q = Quaternion.AngleAxis(60, Vector3.up);
 this.transform.rotation *= q;
 this.transform.rotation *= q;
@@ -6517,7 +6517,7 @@ v2 = q1 * v1
 
 注意：四元数乘向量，必须四元数在前，向量在后，因为Quaternion没有实现向量在前的方法
 
-```C#
+```csharp
 Vector3 forward = Vector3.forward;
 print(forward); //0, 0, 0
 forward = Quaternion.AngleAxis(45, Vector3.up) * forward;
@@ -6536,7 +6536,7 @@ print(forward); //1, 0, 0
 
 单发，双发，扇形，环形
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6631,7 +6631,7 @@ public class AirPlane : MonoBehaviour
 }
 ```
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6667,7 +6667,7 @@ public class Bullet : MonoBehaviour
 4. Vector3.Lerp实现相机跟随人物
 5. Quaternino.Slerp实现摄像机朝向过渡效果
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6741,7 +6741,7 @@ public class CameraMove : MonoBehaviour
 
 传入一个函数名，函数将在time秒后执行。
 
-```C#
+```csharp
 Invoke("Func", 5);
 
 void Fun()
@@ -6767,7 +6767,7 @@ void Fun(int i)
 
 在 `time` 秒后调用 `methodName` 方法，然后每 `repeatRate` 秒调用一次。
 
-```C#
+```csharp
 InvokeRepeating("Func", 5, 2);
 public void InvokeRepeating(string methodName, float time, float repeatRate);
 ```
@@ -6778,14 +6778,14 @@ public void InvokeRepeating(string methodName, float time, float repeatRate);
 
 不带参数，取消该脚本上的所有延时函数执行。
 
-```C#
+```csharp
 CancelInvoke();
 public void CancelInvoke();
 ```
 
 带参数，指定函数取消执行
 
-```C#
+```csharp
 CancelInvoke("Fun");
 public void CancelInvoke(string methodName)
 ```
@@ -6794,7 +6794,7 @@ public void CancelInvoke(string methodName)
 
 > [MonoBehaviour-IsInvoking - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/MonoBehaviour.IsInvoking.html)
 
-```C#
+```csharp
 if (IsInvoking() && IsInvoking("Fun"))
 {
     print("yes");
@@ -6815,7 +6815,7 @@ public bool IsInvoking(string methodName);
 
 所以，通常在生命周期函数OnEnable当中开启延迟函数，在OnDisable当中关闭延迟函数。
 
-```C#
+```csharp
 private void OnEnable()
 {
     //对象激活 的生命周期函数中 开启延迟（重复执行的延迟）
@@ -6833,7 +6833,7 @@ private void OnDisable()
 
 利用延时函数实现一个计秒器
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6869,11 +6869,11 @@ public class Lesson13_P : MonoBehaviour
 
 请用两种方式延时销毁一个指定对象
 
-```C#
+```csharp
 Destory(this.gameObject, 4);
 ```
 
-```C#
+```csharp
 Invoke("DestroyObj", 0);
 
 void DestroyObj()
@@ -6901,7 +6901,7 @@ void DestroyObj(float time)
 2. Unity当中使用多线程有使用限制，大部分Unity内容不可在多线程当中访问
 3. 虽然不能使用Unity当中的大部分内容，但是可以使用多线程来进行复杂计算，将计算结果放到公共成员当中。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6981,7 +6981,7 @@ public class Lesson14 : MonoBehaviour
 1. 返回值为IEnumerator类型及其子类
 2. 函数中通过`yield return 返回值;` 进行返回
 
-```c#
+```csharp
 //返回值为IEnumerator
 private IEnumerator MyCoroutine(int i, string str)
 {
@@ -7000,13 +7000,13 @@ private IEnumerator MyCoroutine(int i, string str)
 
 这样执行没有任何效果
 
-```C#
+```csharp
 MyCoroutine(1, "123");
 ```
 
 常用开启方式
 
-```C#
+```csharp
 public Coroutine StartCoroutine(IEnumerator routine);
 //第一种
 IEnumerator ie = MyCoroutine(2, "22");
@@ -7026,7 +7026,7 @@ StartCoroutine(MyCoroutine(10, "Panzi"));
 
 > 不建议使用指定函数名进行关闭协程。
 
-```C#
+```csharp
 IEnumerator ie = MyCoroutine(2, "22");
 //协程对象
 Coroutine c1 = StartCoroutine(ie);
@@ -7046,7 +7046,7 @@ StopCoroutine(c2);
 
 注意：==yield return数字会产生装箱拆箱==。
 
-```C#
+```csharp
 yield return 数字;
 yield return null;
 ```
@@ -7055,7 +7055,7 @@ yield return null;
 
 在Update和LateUpdate之间执行
 
-```C#
+```csharp
 yield return new WaitForSeconds(秒);
 ```
 
@@ -7063,7 +7063,7 @@ yield return new WaitForSeconds(秒);
 
 在FixedUpdate和碰撞检测相关函数之后执行
 
-```C#
+```csharp
 yield return new WaitForFixedUpdate();
 ```
 
@@ -7071,7 +7071,7 @@ yield return new WaitForFixedUpdate();
 
 在LateUpdate之后的渲染相关处理完毕后之后，主要会用来截图时会使用
 
-```C#
+```csharp
 yield return new WaitForEndOfFrame();
 ```
 
@@ -7083,7 +7083,7 @@ yield return new WaitForEndOfFrame();
 
 ### 6.跳出协程
 
-```C#
+```csharp
 yield break;
 ```
 
@@ -7117,7 +7117,7 @@ yield break;
 
 利用协程制作一个计秒器
 
-```C#
+```csharp
 public class YieldTimeCounter : MonoBehaviour
 {
     float time = 0;
@@ -7147,7 +7147,7 @@ public class YieldTimeCounter : MonoBehaviour
 
 创建完成后的掉帧不可避免
 
-```C#
+```csharp
 public class CubeCreator : MonoBehaviour
 {
     // Update is called once per frame
@@ -7195,7 +7195,7 @@ Unity只实现了协程调度部分，协程的本体本质上就是一个C#的�
 
 如果我们不通过开启协程方法执行协程，Unity的协程调度器是不会帮助我们管理协程函数的。
 
-```C#
+```csharp
 IEnumerator Test()
 {
     print("call 1");
@@ -7218,7 +7218,7 @@ IEnumerator Test()
 
 通过迭代器的`Current`属性，可以获取到每一次`yield return`返回的对象。
 
-```C#
+```csharp
 IEnumerator ie = Test();
 while (ie.MoveNext())
 {
@@ -7262,7 +7262,7 @@ TestClass
 
 通过迭代器函数实现每隔一秒执行函数中的一部分逻辑
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -7340,7 +7340,7 @@ public class CoroutineMgr : MonoBehaviour
 
 该方式获取到的路径，一般情况下只在编辑模式下使用。我们不会在实际发布游戏后，还使用该路径；可以认为，游戏发布过后，该路径就不存在了 。
 
-```C#
+```csharp
 print(Application.dataPath);
 ```
 
@@ -7350,7 +7350,7 @@ print(Application.dataPath);
 
 如果硬要获取，可以用工程路径拼接
 
-```C#
+```csharp
 print(Application.dataPath + "/Resources");
 ```
 
@@ -7367,7 +7367,7 @@ print(Application.dataPath + "/Resources");
 
 路径获取：
 
-```C#
+```csharp
 print(Application.streamingAssetsPath);
 ```
 
@@ -7383,7 +7383,7 @@ print(Application.streamingAssetsPath);
 
 路径获取：
 
-```C#
+```csharp
 print(Application.persistentDataPath);
 ```
 
@@ -7406,7 +7406,7 @@ print(Application.persistentDataPath);
 
 路径获取：一般不获取，如果硬要获取 可以用工程路径拼接。
 
-```C#
+```csharp
 print(Application.dataPath + "/Editor");
 ```
 
@@ -7454,13 +7454,13 @@ print(Application.dataPath + "/Editor");
 
 第一步：要去加载预设体的资源文件(本质上，就是加载配置数据在内存中)。
 
-```C#
+```csharp
 Object obj = Resources.Load("Cube");
 ```
 
 第二步：如果想要在场景上创建预设体，一定是加载配置文件过后，然后实例化。
 
-```C#
+```csharp
 Instantiate(obj);
 ```
 
@@ -7468,13 +7468,13 @@ Instantiate(obj);
 
 第一步：就是加载数据；
 
-```C#
+```csharp
 Object obj3 = Resources.Load("Music/BKMusic");
 ```
 
 第二步：使用数据，我们不需要实例化；音效切片，我们只需要把数据，赋值到正确的脚本上即可。
 
-```C#
+```csharp
 audioS.clip = obj3 as AudioClip;
 audioS.Play();
 ```
@@ -7483,7 +7483,7 @@ audioS.Play();
 
 文本资源支持的格式
 
-```C#
+```csharp
 .txt	//文本文件
 .xml	//xml配置文件
 .bytes	//二进制文件
@@ -7492,31 +7492,31 @@ audioS.Play();
 .csv.....
 ```
 
-```C#
+```csharp
 TextAsset ta = Resources.Load("Txt/Test") as TextAsset;
 ```
 
 文本内容
 
-```C#
+```csharp
 print(ta.text);
 ```
 
 字节数据组
 
-```C#
+```csharp
 print(ta.bytes);
 ```
 
 ### 4.图片
 
-```C#
+```csharp
 tex = Resources.Load("Tex/TestJPG") as Texture;
 ```
 
 ### 5.其它类型，需要什么类型，就用什么类型就行
 
-```C#
+```csharp
 Resources.Load("fileName") as xxx;
 ```
 
@@ -7528,7 +7528,7 @@ Resources.Load("fileName") as xxx;
 
 #### 6-1加载指定类型的资源
 
-```C#
+```csharp
 tex = Resources.Load("Tex/TestJPG", typeof(Texture)) as Texture;
 ta = Resources.Load("Tex/TestJPG", typeof(TextAsset)) as TextAsset;
 print(ta.text);
@@ -7537,7 +7537,7 @@ print(ta.text);
 #### 6 - 2加载指定名字的所有资源
 
 
-```C#
+```csharp
 Object[] objs = Resources.LoadAll("Tex/TestJPG");
 foreach (Object item in objs)
 {
@@ -7556,7 +7556,7 @@ foreach (Object item in objs)
 
 使用泛型指定类型，省略了as步骤，一般应该都是使用泛型方法。
 
-```C#
+```csharp
 TextAsset ta2 = Resources.Load<TextAsset>("Tex/TestJPG");
 print(ta2.text);
 
@@ -7581,7 +7581,7 @@ Resources动态加载资源的方法，让拓展性更强，相对拖曳来说�
 
 请把之前四元数练习题中，发射散弹等相关逻辑改为动态加载资源并创建。
 
-```C#
+```csharp
 void Start()
 {
     bulletPrefab = Resources.Load<GameObject>("Prefab/Bullet");
@@ -7622,7 +7622,7 @@ YieldInstruction是AsyncOperation 的父类，AsyncOperation 是 ResourceRequest
 
 这句代码，可以理解为，Unity在内部就会去开一个线程进行资源加载。
 
-```C#
+```csharp
 ResourceRequest rq = Resources.LoadAsync<Texture>("Tex/TestJPG");
 //这个，刚刚执行了异步加载的执行代码，资源还没有加载完毕，这样用是不对的。
 //一定要等加载结束过后，才能使用。
@@ -7635,7 +7635,7 @@ ResourceRequest rq = Resources.LoadAsync<Texture>("Tex/TestJPG");
 
 注意：事件的委托模板需要带一个`AsyncOperation`类型的参数，是加载完成后的资源。
 
-```C#
+```csharp
 rq.completed += LoadOver;
 print(Time.frameCount);
 
@@ -7654,7 +7654,7 @@ private void LoadOver( AsyncOperation rq)
 
 如果我们直接返回`ResourceRequest`，由于其是一个`YieldInstruction`的子类，所以，Unity会进行特殊处理，只有当资源加载完成之后，才会继续执行协程后方的代码。
 
-```C#
+```csharp
 StartCoroutine(Load());
 
 IEnumerator LoadOver()
@@ -7674,7 +7674,7 @@ IEnumerator LoadOver()
 
 > [UnityEngine.AsyncOperation - Unity 脚本 API](https://docs.unity.cn/cn/2020.3/ScriptReference/AsyncOperation.html)
 
-```C#
+```csharp
 IEnumerator LoadOver()
 {
     ResourceRequest rq = Resources.LoadAsync<TextAsset>("TextAsset/words");
@@ -7725,7 +7725,7 @@ IEnumerator LoadOver()
 
 > 使用两种方式实现，并添加了已加载的资源部重复加载。
 
-```C#
+```csharp
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7808,7 +7808,7 @@ public class ResourceLoadMgr {
 
 `Resources.UnloadAsset` 方法
 
-```C#
+```csharp
 Resources.UnloadAsset(asset);
 
 TextAsset tex = Resources.Load<TextAsset>("TextAsset/words");
@@ -7827,7 +7827,7 @@ if (tex == null)
 
 一般情况下 我们很少单独使用它。
 
-```C#
+```csharp
 GameObject obj = Resources.Load<GameObject>("Cube");
 Resources.UnloadAsset(obj);	//报错
 ```
@@ -7840,7 +7840,7 @@ Resources.UnloadAsset(obj);	//报错
 
 使用`Resources.UnloadUnusedAssets();`
 
-```C#
+```csharp
 Resources.UnloadUnusedAssets();
 GC.Collect();
 ```
@@ -7857,7 +7857,7 @@ GC.Collect();
 
 ## 知识点一 回顾场景同步切换
 
-```C#
+```csharp
 SceneManager.LoadScene("Lesson19");
 ```
 
@@ -7875,7 +7875,7 @@ SceneManager.LoadScene("Lesson19");
 
 ### 1.通过事件回调函数 异步加载
 
-```C#
+```csharp
 AsyncOperation ao = SceneManager.LoadSceneAsync("Lesson20Test");
 ```
 
@@ -7883,7 +7883,7 @@ AsyncOperation ao = SceneManager.LoadSceneAsync("Lesson20Test");
 
 我们如果希望在加载结束后，做一些事情，那么就可以在该函数中写处理逻辑。
 
-```C#
+```csharp
 ao.completed += (a) =>
 {
 	print("加载结束");
@@ -7900,7 +7900,7 @@ ao.completed += LoadOver;
 
 解决思路：让处理场景加载的脚本依附的对象，过场景时不被移除。
 
-```C#
+```csharp
 //该脚本依附的对象,过场景时不会被移除
 DontDestroyOnLoad(this.gameObject);
 StartCoroutine(LoadScene("Lesson20Test"));
@@ -7908,7 +7908,7 @@ StartCoroutine(LoadScene("Lesson20Test"));
 
 协程的好处，是异步加载场景时，我可以在加载的同时，做一些别的逻辑。
 
-```C#
+```csharp
 IEnumerator LoadScene(string name)
 {
     //第一步
@@ -7971,7 +7971,7 @@ IEnumerator LoadScene(string name)
 
 请写一个简单的场景管理器，提供统一的方法给外部用于场景异步切换。外部可以传入委托用于当异步切换结束时执行某些逻辑
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8046,7 +8046,7 @@ LineRenderer是Unity提供的一个用于画线的组件，使用它我们可以
 
 注意：只要添加了一个LineRenderer组件，他们就有两个点，所以在使用的时候，要先将`positionCount`置0
 
-```C#
+```csharp
 GameObject line = new GameObject();
 line.name = "Line";
 LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
@@ -8054,27 +8054,27 @@ LineRenderer lineRenderer = line.AddComponent<LineRenderer>();
 
 首尾相连
 
-```C#
+```csharp
 lineRenderer.loop = true;
 ```
 
 开始结束宽
 
-```C#
+```csharp
 lineRenderer.startWidth = 0.02f;
 lineRenderer.endWidth = 0.02f;
 ```
 
 开始结束颜色
 
-```C#
+```csharp
 lineRenderer.startColor = Color.white;
 lineRenderer.endColor = Color.red;
 ```
 
 设置材质
 
-```C#
+```csharp
 m = Resources.Load<Material>("M");
 lineRenderer.material = m;
 ```
@@ -8082,7 +8082,7 @@ lineRenderer.material = m;
 设置点
 注意：设置点要先设置点的个数！！
 
-```C#
+```csharp
 lineRenderer.positionCount = 4;
 ```
 
@@ -8090,7 +8090,7 @@ lineRenderer.positionCount = 4;
 
 如果设置了个数，但是未设置具体点位置，那么这些点的位置将是（0，0，0）。
 
-```C#
+```csharp
 lineRenderer.SetPositions(new Vector3[] { new Vector3(0,0,0),
                                          new Vector3(0,0,5),
                                          new Vector3(5,0,5)});
@@ -8099,13 +8099,13 @@ lineRenderer.SetPosition(3, new Vector3(5, 0, 0));
 
 是否使用世界坐标系，决定了，是否随对象移动而移动。
 
-```C#
+```csharp
 lineRenderer.useWorldSpace = false;
 ```
 
 让线段受光影响，会接受光数据，进行着色器计算。
 
-```C#
+```csharp
 lineRenderer.generateLightingData = true;
 ```
 
@@ -8115,7 +8115,7 @@ lineRenderer.generateLightingData = true;
 
 请写一个方法，传入一个中心点，传入一个半径，用LineRender画一个圆出来
 
-```C#
+```csharp
 void DrawRing(Vector3 center, int radius, int pointNum)
 {
     GameObject obj = new GameObject("ring");
@@ -8137,7 +8137,7 @@ void DrawRing(Vector3 center, int radius, int pointNum)
 
 请实现，在Game窗口长按鼠标用LineRender画出鼠标移动的轨迹
 
-```C#
+```csharp
 void Update()
 {
     if (Input.GetMouseButtonDown(0))
@@ -8252,7 +8252,7 @@ void Update()
 
 返回值：在该范围内的触发器（得到了对象触发器就可以得到对象的所有信息）
 
-```C#
+```csharp
 print(LayerMask.NameToLayer("UI"));
 Collider[] colliders = Physics.OverlapBox( Vector3.zero, Vector3.one, Quaternion.AngleAxis(45, Vector3.up), 
                                           1 << LayerMask.NameToLayer("UI") |
@@ -8281,7 +8281,7 @@ for (int i = 0; i < colliders.Length; i++)
 
 每一个编号，代表的都是二进制的一位。
 
-```C#
+```csharp
 0—— 1 << 0——0000 0000 0000 0000 0000 0000 0000 0001 = 1
 1—— 1 << 1——0000 0000 0000 0000 0000 0000 0000 0010 = 2
 2—— 1 << 2——0000 0000 0000 0000 0000 0000 0000 0100 = 4
@@ -8296,7 +8296,7 @@ for (int i = 0; i < colliders.Length; i++)
 参数：传入一个数组进行存储
 `Physics.OverlapBoxNonAlloc()`
 
-```C#
+```csharp
 if (Physics.OverlapBoxNonAlloc(Vector3.zero, Vector3.one, colliders) != 0)
 {
 
@@ -8313,7 +8313,7 @@ if (Physics.OverlapBoxNonAlloc(Vector3.zero, Vector3.one, colliders) != 0)
 - 参数四：是否忽略触发器 UseGlobal-使用全局设置 Collide - 检测触发器 Ignore - 忽略触发器 不填使用UseGlobal
 - 返回值：在该范围内的触发器（得到了对象触发器就可以得到对象的所有信息）
 
-```C#
+```csharp
 colliders = Physics.OverlapSphere(Vector3.zero, 5, 
                                   1 << LayerMask.NameToLayer("Default"));
 ```
@@ -8326,7 +8326,7 @@ colliders = Physics.OverlapSphere(Vector3.zero, 5,
 
 - `Physics.OverlapSphereNonAlloc`
 
-    ```C#
+    ```csharp
     if( Physics.OverlapSphereNonAlloc(Vector3.zero, 5, colliders) != 0 )
     {
     	
@@ -8346,7 +8346,7 @@ colliders = Physics.OverlapSphere(Vector3.zero, 5,
 - 参数五：是否忽略触发器 UseGlobal-使用全局设置 Collide - 检测触发器 Ignore - 忽略触发器 不填使用UseGlobal
 - 返回值：在该范围内的触发器（得到了对象触发器就可以得到对象的所有信息）
 
-```C#
+```csharp
 colliders = Physics.OverlapCapsule(Vector3.zero, Vector3.up, 1, 1 << LayerMask.NameToLayer("UI"), QueryTriggerInteraction.UseGlobal);
 ```
 
@@ -8356,7 +8356,7 @@ colliders = Physics.OverlapCapsule(Vector3.zero, Vector3.up, 1, 1 << LayerMask.N
 - 参数：传入一个数组进行存储
 - `Physics.OverlapCapsuleNonAlloc`
 
-```C#
+```csharp
 if ( Physics.OverlapCapsuleNonAlloc(Vector3.zero, Vector3.up, 1, colliders ) != 0 )
 {
 	
@@ -8386,7 +8386,7 @@ if ( Physics.OverlapCapsuleNonAlloc(Vector3.zero, Vector3.up, 1, colliders ) != 
 2. 按K键在立方体前面5米范围内进行胶囊范围检测
 3. 按L键以立方体脚下为原点，半径10米内进行球形范围检测
 
-```C#
+```csharp
 void Update()
     {
         this.transform.Translate(Input.GetAxis("Vertical") * Vector3.forward * moveSpeed * Time.deltaTime);
@@ -8472,7 +8472,7 @@ Unity物理系统中，目前我们学习的物体相交判断：
 
 假设有一条，起点为坐标(1, 0, 0)，方向为世界坐标Z轴正方向的射线
 
-```C#
+```csharp
  Ray r = new Ray(Vector3.right, Vector3.forward);
 ```
 
@@ -8485,7 +8485,7 @@ Unity物理系统中，目前我们学习的物体相交判断：
 
 Ray中的成员
 
-```C#
+```csharp
 print(r.origin);	//起点
 print(r.direction);	//方向
 ```
@@ -8494,7 +8494,7 @@ print(r.direction);	//方向
 
 得到一条从屏幕位置作为起点，摄像机视口方向为方向的射线。
 
-```C#
+```csharp
 Ray r2 = Camera.main.ScreenPointToRay(Input.mousePosition);
 ```
 
@@ -8512,7 +8512,7 @@ Physics类中提供了很多进行射线检测的静态函数，他们有很多�
 
 准备一条射线
 
-```C#
+```csharp
 Ray r3 = new Ray(Vector3.zero, Vector3.forward);
 ```
 
@@ -8525,7 +8525,7 @@ Ray r3 = new Ray(Vector3.zero, Vector3.forward);
 - 返回值：bool 当碰撞到对象时 返回 true 没有 返回false
 - 注意：这个API只能检测是否有碰撞到对象，不返回碰到的对象
 
-```C#
+```csharp
 if (Physics.Raycast(r3, 
                     1000, 
                     1 << LayerMask.NameToLayer("Monster"), 	
@@ -8539,7 +8539,7 @@ if (Physics.Raycast(r3,
 
 就是把，第一个参数射线变成了射线的两个点，一个起点一个方向。
 
-```C#
+```csharp
 //就是上一个API，不过射线换成了临时创建的。
 if (Physics.Raycast(Vector3.zero, 
                     Vector3.forward, 
@@ -8555,7 +8555,7 @@ if (Physics.Raycast(Vector3.zero,
 
 物体信息类`RaycastHit`
 
-```C#
+```csharp
 RaycastHit hitInfo;
 ```
 
@@ -8565,7 +8565,7 @@ RaycastHit hitInfo;
 - 参数四：检测指定层级（不填检测所有层）
 - 参数五：是否忽略触发器 UseGlobal-使用全局设置 Collide - 检测触发器 Ignore - 忽略触发器 不填使用UseGlobal
 
-```C#
+```csharp
 if ( Physics.Raycast(r3, out hitInfo, 1000, 1<<LayerMask.NameToLayer("Monster"), QueryTriggerInteraction.UseGlobal) )
 {
     print("碰撞到了物体 得到了信息");
@@ -8597,7 +8597,7 @@ if ( Physics.Raycast(r3, out hitInfo, 1000, 1<<LayerMask.NameToLayer("Monster"),
 
 还有一种重载，不用传入射线直接传入起点和方向，也可以用于判断。
 
-```C#
+```csharp
 if (
     Physics.Raycast(
     	Vector3.zero, 
@@ -8621,7 +8621,7 @@ if (
 - 参数四：是否忽略触发器 UseGlobal-使用全局设置 Collide - 检测触发器 Ignore - 忽略触发器 不填使用UseGlobal
 - 返回RaycastHit数组
 
-```C#
+```csharp
 RaycastHit[] hits = Physics.RaycastAll(
     r3, 
     1000, 
@@ -8639,7 +8639,7 @@ for (int i = 0; i < hits.Length; i++)
 
 之前的参数一射线，通过两个点传入。
 
-```C#
+```csharp
 RaycastHit[] hitInfos = Physics.RaycastAll(r3, 1000, 1 << LayerMask.NameToLayer("Default"), QueryTriggerInteraction.UseGlobal);
 for (int i = 0; i < hitInfos.Length; i++)
 {
@@ -8655,7 +8655,7 @@ for (int i = 0; i < hitInfos.Length; i++)
 
 注意：如果这个数组不赋值，将无法访问元素，因为这个函数是`NonAlloc`的，即不分配内存。
 
-```C#
+```csharp
 RaycastHit[] hitInfos = new RaycastHit[3];
 
 if (Physics.RaycastNonAlloc(r3, hitInfos, 1000f, 1 << LayerMask.NameToLayer("Default"), QueryTriggerInteraction.UseGlobal) > 0)
@@ -8679,7 +8679,7 @@ if (Physics.RaycastNonAlloc(r3, hitInfos, 1000f, 1 << LayerMask.NameToLayer("Def
 举例
 这样写是错误的，因为第二个参数，代表的是距离，不是层级。
 
-```C#
+```csharp
 //错误，使用了只传入射线距离的重载函数！
 if (Physics.Raycast(r3, 1 << LayerMask.NameToLayer("Monster")))
 {
@@ -8690,7 +8690,7 @@ public static bool Raycast(Ray ray, float maxDistance);
 
 应该这么写
 
-```C#
+```csharp
 if (Physics.Raycast(r3, 1000, 1 << LayerMask.NameToLayer("Monster")))
 {
 
@@ -8704,7 +8704,7 @@ public static bool Raycast(Ray ray, float maxDistance, int layerMask);
 
 请用资料区给的资源，实现鼠标点击场景上一面墙，在点击的位置创建子弹特效和弹孔。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8749,7 +8749,7 @@ public class Lesson23_P : MonoBehaviour
 
 场景上有一个平面，有一个立方体，当鼠标点击选中立方体时，长按鼠标左键可以拖动立方体在平面上移动，点击鼠标右键取消选中。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
@@ -9545,7 +9545,7 @@ Slides：边数（0~128）
 
 ## 知识点五 代码设置
 
-```C#
+```csharp
 GameObject obj = new GameObject();
 SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
 //动态的改变图片
@@ -9572,7 +9572,7 @@ print(sprs[10].name);
 
 写一个工具类，让我们可以更加方便的加载Multiple类型的图集资源
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9630,7 +9630,7 @@ public class SpriteLoad
 
 用我提供的角色资源，制作一个通过wasd键 控制其上下左右移动的功能
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9692,7 +9692,7 @@ Unity也为我们提供了现成的一些多边形
 
 使用菱形替代资源，制作一个按空格键让角色发射菱形子弹的功能
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9719,7 +9719,7 @@ public class RhombusBullet : MonoBehaviour
 
 ```
 
-```C#
+```csharp
 public class AutoDestroy : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -9730,7 +9730,7 @@ public class AutoDestroy : MonoBehaviour
 }
 ```
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9943,7 +9943,7 @@ Default
 
 ## 知识点四 代码控制
 
-```C#
+```csharp
 GameObject obj = new GameObject();
 SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
 //加载图集资源
@@ -9972,7 +9972,7 @@ sr.sprite = spriteAtlas.GetSprite("dead1");
 
 将我提供给大家的资源制作成图集，并且通过代码加载图集中的一张图片来使用
 
-```C#
+```csharp
 GameObject pig = new GameObject();
 SpriteRenderer sr = pig.AddComponent<SpriteRenderer>();
 SpriteAtlas sa = Resources.Load<SpriteAtlas>("Sprites/Atlas/PigAtlas");
@@ -10097,7 +10097,7 @@ Static静态刚体：不动不受力作用的静态物体，但是想要进行�
 
 API上，基本和**RigidBody3D**一致。
 
-```C#
+```csharp
 //加力
 Rigidbody2D rigid = this.GetComponent<Rigidbody2D>();
 rigid.AddForce(new Vector2(0, 100));
@@ -10190,7 +10190,7 @@ Points：多边形顶点
 
 和3D一样，只不过函数名后加了`2D`。
 
-```C#
+```csharp
 //碰撞进入
 private void OnCollisionEnter2D(Collision2D collision)
 {
@@ -10229,7 +10229,7 @@ private void OnTriggerStay2D(Collider2D collision)
 
 （注意：移动和跳跃都通过刚体的API进行制作，类似3D物理系统中刚体加力和给速度）
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10985,19 +10985,19 @@ https://github.com/Unity-Technologies/2d-extras
 
 瓦片地图信息，可以通过它得到瓦片格子
 
-```C#
+```csharp
 public Tilemap tilemap;
 ```
 
 格子位置相关控制，可以通过它进行坐标转换
 
-```C#
+```csharp
 public Grid grid;
 ```
 
 瓦片资源基类通过它可以得到瓦片资源
 
-```C#
+```csharp
 public TileBase tile;
 ```
 
@@ -11014,7 +11014,7 @@ public TileBase tile;
 
 ### 1.清空瓦片地图
 
-```C#
+```csharp
 tilemap.ClearAllTiles();
 ```
 
@@ -11024,14 +11024,14 @@ tilemap.ClearAllTiles();
 
 有则打印出的是瓦片资源名。
 
-```C#
+```csharp
 TileBase temp = tilemap.GetTile(Vector3Int.zero);
 print(temp);
 ```
 
 ### 3.设置删除瓦片
 
-```C#
+```csharp
 //设置瓦片
 tilemap.SetTile(Vector3Int.zero, tile);
 //设置为空就是删除瓦片
@@ -11048,7 +11048,7 @@ public void SetTiles(Vector3Int[] positionArray, TileBase[] tileArray)
 
 注意：所有使用此瓦片资源的瓦片都将被替换。
 
-```C#
+```csharp
 map.SwapTile(tmp, tileBase);
 ```
 
@@ -11056,7 +11056,7 @@ map.SwapTile(tmp, tileBase);
 
 一般来说，先屏幕坐标转世界坐标，再世界坐标转格子坐标
 
-```C#
+```csharp
 Vector3 tempVec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 print(grid.WorldToCell(tempVec3));
 ```
@@ -11265,7 +11265,7 @@ Unity中有两套动画系统
 
 ### 获取组件
 
-```C#
+```csharp
 animation = this.GetComponent<Animation>();
 ```
 
@@ -11273,7 +11273,7 @@ animation = this.GetComponent<Animation>();
 
 参数为动画文件名。
 
-```C#
+```csharp
 if(Input.GetKeyDown(KeyCode.Alpha1))
 {
     animation.Play("1");
@@ -11286,7 +11286,7 @@ if (Input.GetKeyDown(KeyCode.Alpha2))
 
 ### 2.淡入播放,自动产生过渡效果
 
-```C#
+```csharp
 if(Input.GetKeyDown(KeyCode.Alpha3))
 {
     //当你要播放的动画的开始状态 和当前的状态 不一样时 
@@ -11298,7 +11298,7 @@ if(Input.GetKeyDown(KeyCode.Alpha3))
 
 ### 3.前一个播完再播放下一个
 
-```C#
+```csharp
 if( Input.GetKeyDown(KeyCode.Alpha4) )
 {
     //animation.PlayQueued("2");	//没有过渡效果
@@ -11308,13 +11308,13 @@ if( Input.GetKeyDown(KeyCode.Alpha4) )
 
 ### 4.停止播放所有动画
 
-```C#
+```csharp
 animation.Stop();
 ```
 
 ### 5.是否在播放某个动画
 
-```C#
+```csharp
 if( animation.IsPlaying("1") )
 {
 
@@ -11323,7 +11323,7 @@ if( animation.IsPlaying("1") )
 
 ### 6.播放模式设置
 
-```C#
+```csharp
 animation.wrapMode = WrapMode.Loop;
 ```
 
@@ -11333,25 +11333,25 @@ animation.wrapMode = WrapMode.Loop;
 
 设置层级
 
-```C#
+```csharp
 animation["1"].layer = 1;
 ```
 
 设置权重
 
-```C#
+```csharp
 animation["1"].weight = 1;
 ```
 
 混合模式 叠加还是混合
 
-```C#
+```csharp
 animation["1"].blendMode = AnimationBlendMode.Additive;
 ```
 
 设置混组相关骨骼信息
 
-```C#
+```csharp
 animation[""].AddMixingTransform();
 ```
 
@@ -11427,7 +11427,7 @@ animation[""].AddMixingTransform();
 
 最简单的状态机实现代码就是基于switch的实现
 
-```C#
+```csharp
 //假设我们只有一个值来控制当前玩家的状态
 string animName = "idle";
 switch (animName)
@@ -11546,7 +11546,7 @@ switch (animName)
 
 ### 1.通过状态机条件切换动画
 
-```C#
+```csharp
 animator = this.GetComponent<Animator>();
 
 animator.SetFloat("条件名", 1.2f);
@@ -11561,7 +11561,7 @@ animator.GetBool("条件名");
 
 ### 2.直接切换动画 除非特殊情况 不然一般不使用
 
-```C#
+```csharp
 animator.Play("状态名");
 ```
 
@@ -11588,7 +11588,7 @@ animator.Play("状态名");
 
 ## 知识点二 代码制作序列帧动画
 
-```C#
+```csharp
 public class Lesson35 : MonoBehaviour
 {
     public Sprite[] sprites;
@@ -11633,7 +11633,7 @@ public class Lesson35 : MonoBehaviour
 
 ## 知识点四 利用Animator进行动画控制
 
-```C#
+```csharp
 if (Input.GetKey(KeyCode.D))
 {
 
@@ -11908,7 +11908,7 @@ Velocity：速度
 
 注意：使用`Camera.main.WorldToScreenPoint`，一定要谨记z轴是横截面位置，需要进行一个替换。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11976,19 +11976,19 @@ public class Lesson39_P : MonoBehaviour
 
 获取当前部位默认的类别名
 
-```C#
+```csharp
 GetCategory();
 ```
 
 设置当前部位想要切换的图片信息
 
-```C#
+```csharp
 sr.SetCategoryAndLabel(sr.GetCategory(), "CASK 1");
 ```
 
 使用字典配合SpriteResolver实现换装
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12186,27 +12186,27 @@ Skin：蒙皮选择
 
 注意：需要先引入命名空间
 
-```C#
+```csharp
 using Spine;
 using Spine.Unity;
 ```
 
 ## 知识点一 动画播放
 
-```C#
+```csharp
 sa = this.GetComponent<SkeletonAnimation>();
 ```
 
 方法一：直接改变SkeletonAnimation中参数
 
-```C#
+```csharp
 sa.loop = true;
 sa.AnimationName = "jump";
 ```
 
 方法二：使用SkeletonAnimation中动画状态改变的函数
 
-```C#
+```csharp
 //马上播放
 sa.AnimationState.SetAnimation(0, jumpName, false);
 //排队播放
@@ -12215,13 +12215,13 @@ sa.AnimationState.AddAnimation(0, "walk", true, 0);
 
 ## 知识点二 转向
 
-```C#
+```csharp
 sa.skeleton.ScaleX = -1;
 ```
 
 ## 知识点三 动画事件
 
-```C#
+```csharp
 //动画开始播放
 sa.AnimationState.Start += (t) =>
 {
@@ -12249,7 +12249,7 @@ sa.AnimationState.Event += (t, e) =>
 
 ## 知识点四 便捷特性
 
-```C#
+```csharp
 动画特性
 [SpineAnimation]
 
@@ -12267,7 +12267,7 @@ sa.AnimationState.Event += (t, e) =>
 
 获取骨骼
 
-```C#
+```csharp
 Bone b = sa.skeleton.FindBone(boneName);
 sa.skeleton.SetAttachment(slotName, attachmentName);
 ```
@@ -12494,7 +12494,7 @@ Animation Type：动画类型
 
 请使用资料区的模型，设置它的状态机，我们可以通过W键控制其前进，S键控制其后退，空格键控制其跳跃，AD键可以控制其转向
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12570,7 +12570,7 @@ public class Lesson50_P : MonoBehaviour
 
 通过代码改变某层的权重
 
-```C#
+```csharp
 animator = this.GetComponent<Animator>();
 animator.SetLayerWeight(animator.GetLayerIndex("MyLayer2"), 1);
 ```
@@ -12618,7 +12618,7 @@ animator.SetLayerWeight(animator.GetLayerIndex("MyLayer2"), 1);
 
 通过控制Blend Tree的参数，我们可以简单的实现按住Shift实现奔跑的效果。
 
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12753,7 +12753,7 @@ public class Lesson52_Exercises : MonoBehaviour
    6. SetIKRotation       设置IK对应的角度
    7. AvatarIKGoal枚举    四肢末端IK枚举
 
-```C#
+```csharp
 private void OnAnimatorIK(int layerIndex)
 {
     //头部IK相关
@@ -12826,7 +12826,7 @@ Unity中的Animator提供了对应的函数来完成该功能
 
 事件当中进行动画目标匹配
 
-```C#
+```csharp
 private void MatchTarget()
 {
     //参数一：目标位置
@@ -12940,7 +12940,7 @@ Unity提供了角色控制器脚本专门用于控制角色
 - 碰撞检测使用 `OnControllerColliderHit`（特殊生命周期）方法
 - 触发器仍然使用 `OnTriggerEnter`
 
-```C#
+```csharp
 cc = this.GetComponent<CharacterController>();
 animator = this.GetComponent<Animator>();
 //关键参数
@@ -12956,7 +12956,7 @@ print("接触地面了");
 //cc.Move(Vector3.forward * 10 * Time.deltaTime);
 ```
 
-```C#
+```csharp
 void Update()
 {
     animator.SetInteger("Speed", (int)Input.GetAxisRaw("Vertical"));
@@ -13060,13 +13060,13 @@ Nav Mesh Agent（导航网格代理人）
 
 使用网格相关脚本需要引用命名空间
 
-```C#
+```csharp
 UnityEngine.AI;
 ```
 
 ### 常用内容
 
-```C#
+```csharp
 public NavMeshAgent agent;
 //自动寻路设置目标点
 agent.SetDestination()
@@ -13079,7 +13079,7 @@ agent.isStopped = true;
 
 #### 变量
 
-```C#
+```csharp
 //关键变量
 //1.面板参数相关 速度 加速度 旋转速度等等
 print(agent.speed);
@@ -13120,7 +13120,7 @@ print(agent.velocity);
 
 #### 方法
 
-```C#
+```csharp
 //手动寻路
 //计算生成路径
 NavMeshPath path = new NavMeshPath();
@@ -13140,7 +13140,7 @@ agent.ResetPath();
 agent.Warp(Vector3.zero);
 ```
 
-```C#
+```csharp
 void Update()
 {
     if( Input.GetMouseButtonDown(0) )
